@@ -1,5 +1,6 @@
 package bonoj.me.athenaeum.data.source.remote;
 
+import android.content.Context;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -11,6 +12,13 @@ import bonoj.me.athenaeum.data.BooksDataSource;
 import io.reactivex.Single;
 
 public class BooksRemoteRepository implements BooksDataSource {
+
+    private Context context;
+
+    public BooksRemoteRepository(Context context) {
+        this.context = context;
+
+    }
 
     @Override
     public Single<List<Book>> getBooks() {
