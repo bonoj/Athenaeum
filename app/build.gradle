@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 //apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+//apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 26
@@ -46,11 +47,13 @@ dependencies {
 
     // Dagger 2
     compile 'com.google.dagger:dagger:2.9'
-    annotationProcessor "com.google.dagger:dagger-compiler:2.9"
-    provided 'javax.annotation:jsr250-api:1.0'
+    //annotationProcessor "com.google.dagger:dagger-compiler:2.9"
+    //provided 'javax.annotation:jsr250-api:1.0'
+    kapt 'com.google.dagger:dagger-compiler:2.9'
+    provided 'org.glassfish:javax.annotation:10.0-b28'
 
     // Mockito
-    testCompile 'org.mockito:mockito-core:2.8.9'
+    testCompile 'org.mockito:mockito-core:2.8.47'
 
     // Espresso
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -63,3 +66,8 @@ dependencies {
         exclude group: 'com.android.support', module: 'recyclerview-v7'
     }
 }
+
+kapt {
+    generateStubs = true
+}
+
