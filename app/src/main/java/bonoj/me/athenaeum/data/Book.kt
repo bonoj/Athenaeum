@@ -1,3 +1,3 @@
 package bonoj.me.athenaeum.data
 
-data class Book(val title: String = "")
+data class Book(val title: String = "", val imageUrl: String = "")

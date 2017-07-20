@@ -13,7 +13,6 @@ class ApplicationModule(private val application: AthenaeumApplication) {
     private val booksRemoteRepository: BooksRemoteRepository
 
     init {
-
         booksRemoteRepository = BooksRemoteRepository(application)
     }
 
