@@ -2,6 +2,7 @@ package bonoj.me.athenaeum.books;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +35,8 @@ public class BooksRecyclerViewAdapter extends
         this.inflater = LayoutInflater.from(context);
         this.clickListener = clickListener;
         books = new ArrayList<>();
+
+        Log.i("MVP view", "Constructed BooksRecyclerViewAdapter");
     }
 
     // Inflates the item layout and returns the holder
@@ -43,6 +46,8 @@ public class BooksRecyclerViewAdapter extends
         ViewHolder viewHolder = new ViewHolder(view);
 
         context = parent.getContext();
+
+        Log.i("MVP view", "Returning a viewHolder");
 
         return viewHolder;
     }
@@ -74,6 +79,7 @@ public class BooksRecyclerViewAdapter extends
         if (books == null) {
             return 0;
         } else {
+            Log.i("MVP view", "getItemCount returned " + books.size());
             return books.size();
         }
     }
@@ -99,17 +105,19 @@ public class BooksRecyclerViewAdapter extends
     }
 
     // Retrieves the Book at the clicked position
-    // TODO Implement parcelable in ConnectidConnection
+    // TODO Implement parcelable in Book
     public Book getParcelableItem(int position) {
         return books.get(position);
     }
 
     // Updates the array, allowing for uninterrupted scrolling
-    public void setConnections(List<Book> books) {
+    public void setBooks(List<Book> books) {
         if (books == null) {
             books = new ArrayList<>();
             this.books = books;
         } else {
+            Log.i("MVP view", "setBooks set " + books.size() + " books");
+
             this.books.clear();
             this.books.addAll(books);
             notifyDataSetChanged();
