@@ -19,7 +19,7 @@ class ApplicationModule(private val application: AthenaeumApplication) {
 
     @Provides
     @Singleton
-    fun provideContext(): Context {
+    fun provideApplicationContext(): Context {
         return application
     }
 

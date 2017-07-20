@@ -7,6 +7,7 @@
     tools:context="bonoj.me.athenaeum.books.BooksActivity">
 
     <TextView
+        android:id="@+id/books_debug_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello World!"
