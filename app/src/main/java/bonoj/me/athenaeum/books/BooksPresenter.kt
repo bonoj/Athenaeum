@@ -11,7 +11,6 @@ class BooksPresenter(private val view: BooksContract.View,
                      private val booksDataSource: BooksDataSource,
                      private val mainScheduler: Scheduler) : BooksContract.Presenter {
 
-    // Create a composite for RxJava subscriber cleanup
     private val compositeDisposable = CompositeDisposable()
 
     override fun loadBooks() {
@@ -36,7 +35,6 @@ class BooksPresenter(private val view: BooksContract.View,
                     }
                 })
 
-        // Add this subscription to the RxJava cleanup composite
         compositeDisposable.add(disposableSingleObserver)
     }
 
