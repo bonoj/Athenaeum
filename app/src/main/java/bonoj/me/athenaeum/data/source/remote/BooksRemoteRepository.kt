@@ -28,9 +28,9 @@ class BooksRemoteRepository(private val context: Context) : BooksDataSource {
 
     private fun generateDummyBookList(): List<Book> {
         val books = ArrayList<Book>()
-        books.add(Book(title = "The Fellowship of the Ring"))
-        books.add(Book(title = "The Two Towers"))
-        books.add(Book(title = "The Return of the King"))
+        books.add(Book(id = "1", title = "The Fellowship of the Ring", imageUrl = "https://s-media-cache-ak0.pinimg.com/236x/65/75/59/657559342e32d10975bf99961ab084f0--fellowship-of-the-ring-lord-of-the-rings.jpg"))
+        books.add(Book(id = "2", title = "The Two Towers", imageUrl = "https://img1.od-cdn.com/ImageType-400/0874-1/A1D/40F/DB/%7BA1D40FDB-55BF-4C91-BB96-3803FA25B575%7DImg400.jpg"))
+        books.add(Book(id = "3", title = "The Return of the King", imageUrl = "https://i.stack.imgur.com/071TF.jpg"))
 
         return books
     }

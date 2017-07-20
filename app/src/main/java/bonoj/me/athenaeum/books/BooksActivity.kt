@@ -14,14 +14,15 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_books.*
 import javax.inject.Inject
 
-class BooksActivity : AppCompatActivity(), BooksContract.View, BooksRecyclerViewAdapter.RecyclerViewClickListener {
+class BooksActivity : AppCompatActivity(), BooksContract.View, BooksAdapter.ItemClickListener {
 
     @Inject
     lateinit var booksDataSource: BooksDataSource
 
     lateinit internal var presenter: BooksPresenter
 
-    lateinit internal var adapter: BooksRecyclerViewAdapter
+    //lateinit internal var adapter: BooksRecyclerViewAdapter
+    lateinit internal var adapter: BooksAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,10 +32,11 @@ class BooksActivity : AppCompatActivity(), BooksContract.View, BooksRecyclerView
 
         Stetho.initializeWithDefaults(this)
 
-        adapter = BooksRecyclerViewAdapter(this, this)
+        //adapter = BooksRecyclerViewAdapter(this, this)
+        adapter = BooksAdapter(this, this)
         books_list_rv.setHasFixedSize(true)
         books_list_rv.setLayoutManager(LinearLayoutManager(this))
-        books_list_rv.adapter
+        books_list_rv.adapter = adapter
 
         presenter = BooksPresenter(this, booksDataSource, AndroidSchedulers.mainThread())
         presenter.loadBooks()
@@ -64,13 +66,19 @@ class BooksActivity : AppCompatActivity(), BooksContract.View, BooksRecyclerView
 
     override fun displayNoBooks() {
         Log.i("MVP view", "no books")
+
+        books_list_rv.visibility = View.GONE
+        books_debug_tv.visibility = View.VISIBLE
     }
 
     override fun displayError() {
         Log.i("MVP view", "please check your connection")
+
+        books_list_rv.visibility = View.GONE
+        books_debug_tv.visibility = View.VISIBLE
     }
 
-    override fun onItemClick(view: View?, position: Int) {
+    override fun onItemClick(view: View, position: Int) {
         Log.i("MVP view", "clicked position " + position.toString())
     }
 }
