@@ -33,7 +33,7 @@ ext {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 
     // Android
     implementation "com.android.support:appcompat-v7:${supportLibVersion}"
@@ -44,10 +44,15 @@ dependencies {
     // TODO Remove if ConstraintLayout never used
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 
-    // Glide
-//    implementation 'com.github.bumptech.glide:glide:4.0.0-RC1'
-//    kapt 'com.github.bumptech.glide:compiler:4.0.0-RC1'
+    // TODO Remove if Google Books library not required
+    // Google Books
+    implementation('com.google.apis:google-api-services-books:v1-rev92-1.22.0', {
+        exclude module: 'httpclient'
+        exclude group: 'org.apache.httpcomponents'
+        exclude group: 'org.apache.httpcomponents', module: 'httpclient'
+    })
 
+    // Glide
     implementation 'com.github.bumptech.glide:glide:3.8.0'
 
     // Schematic
@@ -60,6 +65,8 @@ dependencies {
 
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+//    implementation 'com.squareup.retrofit2:adapter-rxjava:2.3.0'
 
     // RxJava
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'

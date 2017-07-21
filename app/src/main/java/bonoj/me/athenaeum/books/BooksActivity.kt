@@ -1,5 +1,6 @@
 package bonoj.me.athenaeum.books
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
@@ -8,6 +9,7 @@ import android.view.View
 import bonoj.me.athenaeum.R
 import bonoj.me.athenaeum.data.Book
 import bonoj.me.athenaeum.data.BooksDataSource
+import bonoj.me.athenaeum.details.DetailsActivity
 import bonoj.me.athenaeum.root.AthenaeumApplication
 import com.facebook.stetho.Stetho
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -80,5 +82,8 @@ class BooksActivity : AppCompatActivity(), BooksContract.View, BooksAdapter.Item
 
     override fun onItemClick(view: View, position: Int) {
         Log.i("MVP view", "clicked position " + position.toString())
+
+        val intent = Intent(this, DetailsActivity::class.java)
+        startActivity(intent)
     }
 }
