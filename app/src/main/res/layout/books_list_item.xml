@@ -11,7 +11,7 @@
         android:id="@+id/list_item_iv"
         tools:src="@drawable/placeholder"
         android:scaleType="fitXY"
-        android:layout_weight="90"
+        android:layout_weight="80"
         android:layout_width="match_parent"
         android:layout_height="0dp" />
 
@@ -20,10 +20,10 @@
         android:gravity="center"
         android:textSize="24sp"
         android:textColor="@android:color/white"
-        android:lines="1"
+        android:lines="2"
         android:background="@android:color/black"
         tools:text="The Fellowship of the Ring"
-        android:layout_weight="10"
+        android:layout_weight="20"
         android:layout_width="match_parent"
         android:layout_height="0dp" />
 
