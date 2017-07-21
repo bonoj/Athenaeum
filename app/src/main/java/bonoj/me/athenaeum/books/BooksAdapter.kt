@@ -5,9 +5,11 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import bonoj.me.athenaeum.R
 import bonoj.me.athenaeum.data.Book
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.books_list_item.view.*
 
 
@@ -18,7 +20,7 @@ class BooksAdapter(context: Context, private val clickListener: ItemClickListene
     private var books: ArrayList<Book>
 
     // TODO Remove if context is never needed
-    //private lateinit var context: Context
+    private lateinit var context: Context
 
     interface ItemClickListener {
         fun onItemClick(view: View, position: Int)
@@ -34,7 +36,7 @@ class BooksAdapter(context: Context, private val clickListener: ItemClickListene
         val viewHolder = ViewHolder(view)
 
         // TODO Remove if context is never needed
-        //context = parent.context
+        context = parent.context
 
         return viewHolder
     }
@@ -45,7 +47,9 @@ class BooksAdapter(context: Context, private val clickListener: ItemClickListene
         val title = books[position].title
         val imageUrl = books[position].imageUrl
 
-        holder.listItemTv.text = title + " - " + id
+        Glide.with(context).load(imageUrl).into(holder.listItemIv)
+
+        holder.listItemTv.text = title
         holder.listItemTv.tag = id
     }
 
@@ -55,6 +59,7 @@ class BooksAdapter(context: Context, private val clickListener: ItemClickListene
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         var listItemTv: TextView = itemView.list_item_tv
+        var listItemIv: ImageView = itemView.list_item_iv
 
         init {
             itemView.setOnClickListener(this)
