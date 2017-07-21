@@ -4,31 +4,35 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import java.util.List;
+
 import bonoj.me.athenaeum.R;
-import bonoj.me.athenaeum.data.GoogleBook;
-import bonoj.me.athenaeum.data.source.remote.ApiService;
-import bonoj.me.athenaeum.data.source.remote.ApiUtilities;
+import bonoj.me.athenaeum.data.model.GoogleBook;
+import bonoj.me.athenaeum.data.model.Item;
+import bonoj.me.athenaeum.data.model.VolumeInfo;
+import bonoj.me.athenaeum.data.source.remote.BooksApiService;
+import bonoj.me.athenaeum.data.source.remote.BooksApiUtils;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DetailsActivity extends AppCompatActivity {
 
-    private ApiService apiService;
+    private BooksApiService booksApiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
 
-        apiService = ApiUtilities.getApiService();
+        booksApiService = BooksApiUtils.getApiService();
 
         loadBooksFromApi();
     }
 
     public void loadBooksFromApi() {
-        
-        apiService.getBooks().enqueue(new Callback<GoogleBook>() {
+
+        booksApiService.getBooks().enqueue(new Callback<GoogleBook>() {
 
             @Override
             public void onResponse(Call<GoogleBook> call, Response<GoogleBook> response) {
@@ -36,6 +40,15 @@ public class DetailsActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
 
                     Log.i("Retrofitters", "books loaded from API");
+                    Log.i("Retrofitters", response.toString());
+
+                    GoogleBook googleBook = response.body();
+                    List<Item> items = googleBook.getItems();
+                    VolumeInfo volumeInfo = items.get(0).getVolumeInfo();
+                    String title = volumeInfo.getTitle();
+
+                    Log.i("Retrofitters", title);
+
                 } else {
                     int statusCode = response.code();
                     // handle request errors depending on status code
