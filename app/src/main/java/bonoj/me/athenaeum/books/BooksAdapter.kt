@@ -13,31 +13,23 @@ import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.books_list_item.view.*
 
 
-class BooksAdapter(context: Context, private val clickListener: ItemClickListener) : RecyclerView.Adapter<BooksAdapter.ViewHolder>() {
+class BooksAdapter(private val context: Context,
+                   private val clickListener: ItemClickListener) : RecyclerView.Adapter<BooksAdapter.ViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
-
-    private var books: ArrayList<Book>
-
-    // TODO Remove if context is never needed
-    private lateinit var context: Context
+    private val height: Int = (context.resources.displayMetrics.heightPixels / 2.2).toInt()
+    private var books: ArrayList<Book> = ArrayList()
 
     interface ItemClickListener {
         fun onItemClick(view: View, position: Int)
     }
 
-    init {
-        books = ArrayList<Book>()
-    }
-
-    // Inflates the item layout and returns the holder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = inflater.inflate(R.layout.books_list_item, parent, false)
         val viewHolder = ViewHolder(view)
 
-        // TODO Remove if context is never needed
-        context = parent.context
-
+        view.requestLayout()
+        view.layoutParams.height = height
         return viewHolder
     }
 
@@ -47,7 +39,10 @@ class BooksAdapter(context: Context, private val clickListener: ItemClickListene
         val title = books[position].title
         val imageUrl = books[position].imageUrl
 
-        Glide.with(context).load(imageUrl).into(holder.listItemIv)
+        Glide.with(context)
+                .load(imageUrl)
+                .placeholder(R.drawable.placeholder)
+                .into(holder.listItemIv)
 
         holder.listItemTv.text = title
         holder.listItemTv.tag = id
@@ -70,7 +65,6 @@ class BooksAdapter(context: Context, private val clickListener: ItemClickListene
         }
     }
 
-    // Updates the array, allowing for uninterrupted scrolling
     fun setBooks(books: List<Book>) {
 
         // TODO Remove if clear is never needed
@@ -80,9 +74,8 @@ class BooksAdapter(context: Context, private val clickListener: ItemClickListene
         notifyDataSetChanged()
     }
 
-    // Retrieves the Book at the clicked position
-    // TODO Implement parcelable in Book
-    fun getParcelableItem(position: Int): Book {
+
+    fun getBook(position: Int): Book {
         return books[position]
     }
 

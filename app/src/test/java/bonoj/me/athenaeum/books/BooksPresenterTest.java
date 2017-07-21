@@ -42,9 +42,9 @@ public class BooksPresenterTest {
     public void shouldDeliverConnectionsToView() {
 
         List<Book> books = Arrays.asList(
-                new Book(),
-                new Book(),
-                new Book());
+                new Book("a", "b", "c"),
+                new Book("a", "b", "c"),
+                new Book("a", "b", "c"));
         Mockito.when(booksDataSource.getBooks()).thenReturn(Single.just(books));
 
         presenter.loadBooks();

@@ -1,7 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-//apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 26
@@ -41,16 +40,21 @@ dependencies {
     implementation "com.android.support:design:${supportLibVersion}"
     implementation "com.android.support:recyclerview-v7:${supportLibVersion}"
     implementation "com.android.support:support-v4:${supportLibVersion}"
+
+    // TODO Remove if ConstraintLayout never used
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 
     // Glide
-    implementation 'com.github.bumptech.glide:glide:4.0.0-RC1'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0-RC1'
+//    implementation 'com.github.bumptech.glide:glide:4.0.0-RC1'
+//    kapt 'com.github.bumptech.glide:compiler:4.0.0-RC1'
+
+    implementation 'com.github.bumptech.glide:glide:3.8.0'
 
     // Schematic
     implementation 'net.simonvt.schematic:schematic:0.7.0'
     annotationProcessor 'net.simonvt.schematic:schematic-compiler:0.7.0'
 
+    // TODO Remove if Stetho never used
     // Stetho
     implementation 'com.facebook.stetho:stetho:1.5.0'
 

@@ -3,22 +3,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:gravity="center"
+    android:weightSum="100"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/list_item_iv"
-        android:adjustViewBounds="true"
-        android:scaleType="fitCenter"
+        tools:src="@drawable/placeholder"
+        android:scaleType="fitXY"
+        android:layout_weight="90"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="0dp" />
 
     <TextView
         android:id="@+id/list_item_tv"
         android:gravity="center"
-        android:textSize="20sp"
+        android:textSize="24sp"
+        android:textColor="@android:color/white"
+        android:lines="1"
+        android:background="@android:color/black"
         tools:text="The Fellowship of the Ring"
+        android:layout_weight="10"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="0dp" />
 
 </LinearLayout>

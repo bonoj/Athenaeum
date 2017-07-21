@@ -2,7 +2,7 @@ package bonoj.me.athenaeum.books
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.GridLayoutManager
 import android.util.Log
 import android.view.View
 import bonoj.me.athenaeum.R
@@ -20,8 +20,6 @@ class BooksActivity : AppCompatActivity(), BooksContract.View, BooksAdapter.Item
     lateinit var booksDataSource: BooksDataSource
 
     lateinit internal var presenter: BooksPresenter
-
-    //lateinit internal var adapter: BooksRecyclerViewAdapter
     lateinit internal var adapter: BooksAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,10 +30,12 @@ class BooksActivity : AppCompatActivity(), BooksContract.View, BooksAdapter.Item
 
         Stetho.initializeWithDefaults(this)
 
-        //adapter = BooksRecyclerViewAdapter(this, this)
+        val columns: Int = resources.getInteger(R.integer.columns)
+        val layoutManager: GridLayoutManager = GridLayoutManager(this, columns)
+
         adapter = BooksAdapter(this, this)
         books_list_rv.setHasFixedSize(true)
-        books_list_rv.setLayoutManager(LinearLayoutManager(this))
+        books_list_rv.setLayoutManager(layoutManager)
         books_list_rv.adapter = adapter
 
         presenter = BooksPresenter(this, booksDataSource, AndroidSchedulers.mainThread())
