@@ -10,11 +10,10 @@ import java.util.*
 
 class BooksRemoteRepository(private val context: Context) : BooksDataSource {
 
-    // TODO Remove if apiKey not needed
     private val apiKey = BuildConfig.API_KEY
 
     private val booksApiService = BooksApiUtils.apiService
-    
+
     private var startIndex = 0
     private var searchString = "apple"
 
@@ -40,6 +39,8 @@ class BooksRemoteRepository(private val context: Context) : BooksDataSource {
             }
         }
 
+    // TODO Move the list growth from view to model
+
     private fun getBooksFromApi(): List<Book> {
 
         val books = ArrayList<Book>()
@@ -52,11 +53,10 @@ class BooksRemoteRepository(private val context: Context) : BooksDataSource {
 
         Log.i("Google Books API", response.body().toString())
 
-        if(response.body()?.items != null) {
+        val items = response.body()?.items
+        if (items != null) {
 
-            val items = response.body()?.items
-
-            for (item in items!!) {
+            for (item in items) {
 
                 try {
                     val id = item.id
@@ -72,5 +72,9 @@ class BooksRemoteRepository(private val context: Context) : BooksDataSource {
 
         Log.i("Google Books API", "Returning " + books.size.toString())
         return books
+    }
+
+    fun incrementIndex(currentIndex: Int): Int {
+        return currentIndex + 40
     }
 }
