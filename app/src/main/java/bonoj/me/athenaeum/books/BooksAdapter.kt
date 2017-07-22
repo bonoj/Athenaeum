@@ -2,7 +2,6 @@ package bonoj.me.athenaeum.books
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -85,12 +84,11 @@ class BooksAdapter(private val context: Context,
 
     fun setBooks(books: List<Book>) {
 
-        // TODO Remove if clear is never needed
-        //this.books.clear()
-
-        this.books.addAll(books)
-
-        Log.i("ADAPTER", "books size: " + this.books.size)
+        for (book in books) {
+            if (book !in this.books) {
+                this.books.add(book)
+            }
+        }
 
         notifyDataSetChanged()
     }

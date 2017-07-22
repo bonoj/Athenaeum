@@ -13,6 +13,5 @@ class DetailsActivity : AppCompatActivity() {
 
         AthenaeumApplication.graph.inject(this)
 
-
     }
 }
