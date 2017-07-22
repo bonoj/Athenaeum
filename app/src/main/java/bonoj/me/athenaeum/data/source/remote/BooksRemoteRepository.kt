@@ -14,7 +14,7 @@ class BooksRemoteRepository(private val context: Context) : BooksDataSource {
     private val apiKey = BuildConfig.API_KEY
 
     private val booksApiService = BooksApiUtils.apiService
-
+    
     private var startIndex = 0
     private var searchString = "apple"
 
@@ -25,21 +25,18 @@ class BooksRemoteRepository(private val context: Context) : BooksDataSource {
 
             return Single.fromCallable {
 
-//                var booksFromApi = getBooksFromApi()
-//
-//                Log.i("Google Books API", booksFromApi.size.toString())
-//                if (booksFromApi.isEmpty()) {
-//                    startIndex = 0
-//                    searchString = "banana"
-//                    booksFromApi = getBooksFromApi()
-//                }
-//
-//
-//                booksFromApi
+                var booksFromApi = getBooksFromApi()
 
-                val books = getBooksFromApi()
+                if (booksFromApi.isEmpty()) {
 
-                books
+                    Log.i("Google Books API", "Size of booksFromApi: " + booksFromApi.size.toString())
+
+                    startIndex = 0
+                    searchString = "banana"
+                    booksFromApi = getBooksFromApi()
+                }
+
+                booksFromApi
             }
         }
 
@@ -47,50 +44,33 @@ class BooksRemoteRepository(private val context: Context) : BooksDataSource {
 
         val books = ArrayList<Book>()
 
-        //val response = booksApiService.books.execute()
-
         val response = booksApiService.setParameters(startIndex, searchString).execute()
 
         Log.i("Google Books API", booksApiService.setParameters(startIndex, searchString).request().url().toString())
 
-        startIndex += 40
+        startIndex += 740
 
         Log.i("Google Books API", response.body().toString())
 
-        if (response.body()?.items == null) {
-            startIndex = 0
-            //searchString = "banana"
+        if(response.body()?.items != null) {
 
-            return getBooksFromApi()
-        } else {
-            //val items = response.body()?.items
-            response.isSuccessful.let {
+            val items = response.body()?.items
 
-                val booksApiResponse = response.body()
+            for (item in items!!) {
 
-                booksApiResponse?.let {
+                try {
+                    val id = item.id
+                    val title = item.volumeInfo.title
+                    val imageUrl = item.volumeInfo.imageLinks.thumbnail
 
-
-                    val items = booksApiResponse.items
-
-                    for (item in items) {
-
-                        try {
-                            val id = item.id
-                            val title = item.volumeInfo.title
-                            val imageUrl = item.volumeInfo.imageLinks.thumbnail
-
-                            //Log.i("Google Books API", id + " " + title + " " + imageUrl)
-
-                            books.add(Book(id, title, imageUrl))
-                        } catch (e: Exception) {
-                            // Skip the book if id, title, or imageUrl is null
-                        }
-                    }
+                    books.add(Book(id, title, imageUrl))
+                } catch (e: Exception) {
+                    // Ignore book if it has no id, title, or imageUrl
                 }
             }
-            //return books
         }
+
+        Log.i("Google Books API", "Returning " + books.size.toString())
         return books
     }
 }
