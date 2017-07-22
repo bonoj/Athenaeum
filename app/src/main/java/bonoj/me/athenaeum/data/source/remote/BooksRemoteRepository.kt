@@ -43,7 +43,8 @@ class BooksRemoteRepository(private val context: Context) : BooksDataSource {
                     val title = item.volumeInfo.title
                     val imageUrl = item.volumeInfo.imageLinks.thumbnail
 
-                    Log.i("Retrofitters", id + " " + title + " " + imageUrl)
+//                    Log.i("Retrofitters", id + " " + title + " " + imageUrl)
+
                     books.add(Book(id, title, imageUrl))
                 }
             }

@@ -36,6 +36,9 @@ class BooksActivity : AppCompatActivity(), BooksContract.View, BooksAdapter.Item
         books_list_rv.setHasFixedSize(true)
         books_list_rv.setLayoutManager(layoutManager)
         books_list_rv.adapter = adapter
+        books_list_rv.addOnScrollListener(
+                EndlessScrollListener({ presenter.loadBooks() }, layoutManager)
+        )
 
         presenter = BooksPresenter(this, booksDataSource, AndroidSchedulers.mainThread())
         presenter.loadBooks()
@@ -66,8 +69,10 @@ class BooksActivity : AppCompatActivity(), BooksContract.View, BooksAdapter.Item
     override fun displayNoBooks() {
         Log.i("MVP view", "no books")
 
-        books_list_rv.visibility = View.GONE
-        books_debug_tv.visibility = View.VISIBLE
+        if (books_list_rv.adapter.itemCount == 0) {
+            books_list_rv.visibility = View.GONE
+            books_debug_tv.visibility = View.VISIBLE
+        }
     }
 
     override fun displayError() {
