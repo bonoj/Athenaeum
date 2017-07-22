@@ -10,7 +10,6 @@
         android:id="@+id/books_debug_tv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello World!"
         android:textSize="24sp"
         android:gravity="center" />
 

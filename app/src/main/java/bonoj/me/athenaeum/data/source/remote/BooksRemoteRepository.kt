@@ -11,7 +11,7 @@ import java.util.*
 class BooksRemoteRepository(private val context: Context) : BooksDataSource {
 
     private val apiKey = BuildConfig.API_KEY
-    private val booksApiService = BooksApiUtils.getApiService()
+    private val booksApiService = BooksApiUtils.apiService
 
     override val books: Single<List<Book>>
         get() {

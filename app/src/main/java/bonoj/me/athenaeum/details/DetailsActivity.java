@@ -26,7 +26,7 @@ public class DetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
 
-        booksApiService = BooksApiUtils.getApiService();
+        booksApiService = BooksApiUtils.INSTANCE.getApiService();
 
         //loadBooksFromApi();
 

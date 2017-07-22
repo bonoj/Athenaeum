@@ -2,7 +2,6 @@ package bonoj.me.athenaeum.books
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,16 +17,27 @@ class BooksAdapter(private val context: Context,
                    private val clickListener: ItemClickListener) : RecyclerView.Adapter<BooksAdapter.ViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
-    private lateinit var outValue: TypedValue
-    private var height_ratio = context.resources.getValue(R.dimen.height_ratio, outValue, true)
+    private val isPortrait = context.resources.getBoolean(R.bool.isPortrait)
 
-    // TODO Fix this, 1.5 for landscape, 2.2 for portrait
-
-    private val height: Int = (context.resources.displayMetrics.heightPixels / outValue.float).toInt()
+    private var height = 0
     private var books: ArrayList<Book> = ArrayList()
 
     interface ItemClickListener {
         fun onItemClick(view: View, position: Int)
+    }
+
+    init {
+        setViewHeight()
+    }
+
+    fun setViewHeight() {
+        var heightRatio: Float
+        if (isPortrait) {
+            heightRatio = 2.2F
+        } else {
+            heightRatio = 1.5F
+        }
+        height = (context.resources.displayMetrics.heightPixels / heightRatio).toInt()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -79,7 +89,6 @@ class BooksAdapter(private val context: Context,
         this.books.addAll(books)
         notifyDataSetChanged()
     }
-
 
     fun getBook(position: Int): Book {
         return books[position]
