@@ -43,6 +43,8 @@ class BooksRemoteRepository(private val context: Context) : BooksDataSource {
 //            startIndex = 0
 //        }
 
+        Log.i("Google Books API", response.body().toString())
+
 
         response.isSuccessful.let {
 
@@ -50,15 +52,23 @@ class BooksRemoteRepository(private val context: Context) : BooksDataSource {
 
             booksApiResponse?.let {
 
+                // TODO Parse this json more cleanly, handle all possible errors.
+                // TODO IF items = null, need to handle this.
                 val items = booksApiResponse.items
 
                 for (item in items) {
 
+                    var imageUrl = ""
+
                     val id = item.id
                     val title = item.volumeInfo.title
-                    val imageUrl = item.volumeInfo.imageLinks.thumbnail
+                    try {
+                        imageUrl = item.volumeInfo.imageLinks.thumbnail
+                    } catch (e: Exception) {
 
-//                    Log.i("Google Books API", id + " " + title + " " + imageUrl)
+                    }
+
+                    Log.i("Google Books API", id + " " + title + " " + imageUrl)
 
                     books.add(Book(id, title, imageUrl))
                 }

@@ -11,9 +11,9 @@ interface BooksApiService {
     @get:GET("volumes?q=9781451648546&startIndex=0&maxResults=40")
     val books: Call<BooksApiResponse>
 
-    @GET("volumes?q=intitle:apple&maxResults=40")
-    fun getStartIndex(@Query("startIndex") startIndex: Int): Call<BooksApiResponse>
-
-//    @GET("volumes?q=9781451648546&maxResults=40")
+//    @GET("volumes?q=intitle:steve&maxResults=40")
 //    fun getStartIndex(@Query("startIndex") startIndex: Int): Call<BooksApiResponse>
+
+    @GET("volumes?q=apple&maxResults=40")
+    fun getStartIndex(@Query("startIndex") startIndex: Int): Call<BooksApiResponse>
 }
