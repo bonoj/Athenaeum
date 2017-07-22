@@ -9,7 +9,7 @@ class EndlessScrollListener(
 
     private var previousTotal = 0
     private var loading = true
-    private var visibleThreshold = 10
+    private var desiredThreshold = 10
     private var firstVisibleItem = 0
     private var visibleItemCount = 0
     private var totalItemCount = 0
@@ -29,7 +29,7 @@ class EndlessScrollListener(
                 }
             }
             if (!loading && (totalItemCount - visibleItemCount)
-                    <= (firstVisibleItem + visibleThreshold)) {
+                    <= (firstVisibleItem + desiredThreshold)) {
 
                 // Reached desired threshold
                 func()

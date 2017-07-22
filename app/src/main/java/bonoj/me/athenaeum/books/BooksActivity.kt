@@ -78,8 +78,10 @@ class BooksActivity : AppCompatActivity(), BooksContract.View, BooksAdapter.Item
     override fun displayError() {
         Log.i("MVP view", "please check your connection")
 
-        books_list_rv.visibility = View.GONE
-        books_debug_tv.visibility = View.VISIBLE
+        if (books_list_rv.adapter.itemCount == 0) {
+            books_list_rv.visibility = View.GONE
+            books_debug_tv.visibility = View.VISIBLE
+        }
     }
 
     override fun onItemClick(view: View, position: Int) {
