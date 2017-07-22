@@ -1,6 +1,7 @@
 package bonoj.me.athenaeum.root
 
 import bonoj.me.athenaeum.books.BooksActivity
+import bonoj.me.athenaeum.details.DetailsActivity
 import dagger.Component
 import javax.inject.Singleton
 
@@ -12,5 +13,5 @@ interface ApplicationComponent {
 
     fun inject(booksActivity: BooksActivity)
 
-    //void inject(DetailsActivity detailsActivity);
+    fun inject(detailsActivity: DetailsActivity)
 }

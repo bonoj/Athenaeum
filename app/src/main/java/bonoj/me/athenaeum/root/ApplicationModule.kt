@@ -24,8 +24,7 @@ class ApplicationModule(private val application: AthenaeumApplication) {
 
     @Provides
     @Singleton
-    internal fun provideConnectionsRepository(context: Context): BooksDataSource {
-
+    internal fun provideBooksRemoteRepository(context: Context): BooksDataSource {
         return booksRemoteRepository
     }
 }

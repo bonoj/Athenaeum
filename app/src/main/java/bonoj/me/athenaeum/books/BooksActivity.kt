@@ -11,7 +11,6 @@ import bonoj.me.athenaeum.data.Book
 import bonoj.me.athenaeum.data.BooksDataSource
 import bonoj.me.athenaeum.details.DetailsActivity
 import bonoj.me.athenaeum.root.AthenaeumApplication
-import com.facebook.stetho.Stetho
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_books.*
 import javax.inject.Inject
@@ -29,8 +28,6 @@ class BooksActivity : AppCompatActivity(), BooksContract.View, BooksAdapter.Item
         setContentView(R.layout.activity_books)
 
         AthenaeumApplication.graph.inject(this)
-
-        Stetho.initializeWithDefaults(this)
 
         val columns: Int = resources.getInteger(R.integer.columns)
         val layoutManager: GridLayoutManager = GridLayoutManager(this, columns)
