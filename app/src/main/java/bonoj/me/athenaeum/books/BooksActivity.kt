@@ -29,8 +29,8 @@ class BooksActivity : AppCompatActivity(), BooksContract.View, BooksAdapter.Item
 
         AthenaeumApplication.graph.inject(this)
 
-        val columns: Int = resources.getInteger(R.integer.columns)
-        val layoutManager: GridLayoutManager = GridLayoutManager(this, columns)
+        val columns = resources.getInteger(R.integer.columns)
+        val layoutManager = GridLayoutManager(this, columns)
 
         adapter = BooksAdapter(this, this)
         books_list_rv.setHasFixedSize(true)

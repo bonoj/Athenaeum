@@ -11,15 +11,16 @@ import bonoj.me.athenaeum.R
 import bonoj.me.athenaeum.data.Book
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.books_list_item.view.*
+import kotlin.properties.Delegates
 
 
 class BooksAdapter(private val context: Context,
                    private val clickListener: ItemClickListener) : RecyclerView.Adapter<BooksAdapter.ViewHolder>() {
 
-    private val inflater: LayoutInflater = LayoutInflater.from(context)
+    private val inflater = LayoutInflater.from(context)
     private val isPortrait = context.resources.getBoolean(R.bool.isPortrait)
 
-    private var height = 0
+    private var height: Int by Delegates.notNull<Int>()
     private var books: ArrayList<Book> = ArrayList()
 
     interface ItemClickListener {
@@ -31,7 +32,7 @@ class BooksAdapter(private val context: Context,
     }
 
     fun setViewHeight() {
-        var heightRatio: Float
+        val heightRatio: Float
         if (isPortrait) {
             heightRatio = 2.2F
         } else {
