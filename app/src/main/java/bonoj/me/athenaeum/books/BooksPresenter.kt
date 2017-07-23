@@ -21,7 +21,7 @@ class BooksPresenter(private val view: BooksContract.View,
                 .subscribeWith(object : DisposableSingleObserver<List<Book>>() {
                     override fun onSuccess(books: List<Book>) {
 
-                        println("Thread subscribe: " + Thread.currentThread().id)
+                        //println("Thread subscribe: " + Thread.currentThread().id)
 
                         if (books.isEmpty()) {
                             view.displayNoBooks()

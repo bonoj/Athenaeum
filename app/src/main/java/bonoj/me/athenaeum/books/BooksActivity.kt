@@ -52,14 +52,6 @@ class BooksActivity : AppCompatActivity(), BooksContract.View, BooksAdapter.Item
 
     override fun displayBooks(books: List<Book>) {
 
-        Log.i("MVP view", "displayBooks has " + books.size.toString() + " books")
-
-        var bookString: String = ""
-        for (book in books) {
-            bookString += book.title + "\n"
-        }
-        books_debug_tv.text = bookString
-
         adapter.setBooks(books)
 
         books_debug_tv.visibility = View.GONE

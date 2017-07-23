@@ -1,12 +1,10 @@
 package bonoj.me.athenaeum.data.source.remote
 
 import android.content.Context
-import android.util.Log
 import bonoj.me.athenaeum.BuildConfig
 import bonoj.me.athenaeum.data.Book
 import bonoj.me.athenaeum.data.BooksDataSource
 import io.reactivex.Single
-import java.util.*
 
 class BooksRemoteRepository(private val context: Context) : BooksDataSource {
 
@@ -17,41 +15,33 @@ class BooksRemoteRepository(private val context: Context) : BooksDataSource {
     private var startIndex = 0
     private var searchString = "apple"
 
+    private var booksFromApi: ArrayList<Book> = ArrayList()
+
     override val books: Single<List<Book>>
         get() {
 
-            //Log.i("MVP model", "API key = " + apiKey)
-
             return Single.fromCallable {
 
-                var booksFromApi = getBooksFromApi()
+                var booksFromApi = getBooksFromApi(startIndex, searchString)
 
                 if (booksFromApi.isEmpty()) {
 
-                    Log.i("Google Books API", "Size of booksFromApi: " + booksFromApi.size.toString())
-
                     startIndex = 0
                     searchString = "banana"
-                    booksFromApi = getBooksFromApi()
+
+                    booksFromApi = getBooksFromApi(startIndex, searchString)
                 }
 
+                startIndex += 40
                 booksFromApi
             }
         }
 
-    // TODO Move the list growth from view to model
-
-    private fun getBooksFromApi(): List<Book> {
+    private fun getBooksFromApi(startIndex: Int, searchString: String): List<Book> {
 
         val books = ArrayList<Book>()
 
         val response = booksApiService.setParameters(startIndex, searchString).execute()
-
-        Log.i("Google Books API", booksApiService.setParameters(startIndex, searchString).request().url().toString())
-
-        startIndex += 740
-
-        Log.i("Google Books API", response.body().toString())
 
         val items = response.body()?.items
         if (items != null) {
@@ -69,12 +59,7 @@ class BooksRemoteRepository(private val context: Context) : BooksDataSource {
                 }
             }
         }
-
-        Log.i("Google Books API", "Returning " + books.size.toString())
+        
         return books
-    }
-
-    fun incrementIndex(currentIndex: Int): Int {
-        return currentIndex + 40
     }
 }
