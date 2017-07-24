@@ -31,7 +31,7 @@ class EndlessScrollListener(
             if (!loading && (totalItemCount - visibleItemCount)
                     <= (firstVisibleItem + desiredThreshold)) {
 
-                // Reached desired threshold
+                // Desired threshold reached
                 func()
                 loading = true;
             }

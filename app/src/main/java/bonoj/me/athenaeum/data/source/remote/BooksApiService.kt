@@ -16,6 +16,7 @@ interface BooksApiService {
 
     @GET("volumes?maxResults=40")
     fun setParameters(@Query("startIndex") startIndex: Int,
-                      @Query("q") searchString: String
+                      @Query("q") searchString: String,
+                      @Query("key") apiKey: String
     ): Call<BooksApiResponse>
 }

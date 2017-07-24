@@ -1,6 +1,7 @@
 package bonoj.me.athenaeum.data.source.remote
 
 import android.content.Context
+import android.util.Log
 import bonoj.me.athenaeum.BuildConfig
 import bonoj.me.athenaeum.data.Book
 import bonoj.me.athenaeum.data.BooksDataSource
@@ -11,39 +12,49 @@ class BooksRemoteRepository(private val context: Context) : BooksDataSource {
     private val apiKey = BuildConfig.API_KEY
 
     private val booksApiService = BooksApiUtils.apiService
+    //private var booksToReturn: List<Book> = ArrayList()
 
     private var startIndex = 0
-    private var searchString = "apple"
-
-    private var booksFromApi: ArrayList<Book> = ArrayList()
+    private var searchString = "science fiction"
+    private val searchStrings = arrayListOf("fantasy", "horror", "history", "science")
+    private var isEndOfSearch = false
 
     override val books: Single<List<Book>>
         get() {
 
             return Single.fromCallable {
 
-                var booksFromApi = getBooksFromApi(startIndex, searchString)
-
-                if (booksFromApi.isEmpty()) {
-
-                    startIndex = 0
-                    searchString = "banana"
-
-                    booksFromApi = getBooksFromApi(startIndex, searchString)
-                }
-
-                startIndex += 40
-                booksFromApi
+                requestBooksFromApi()
             }
         }
 
-    private fun getBooksFromApi(startIndex: Int, searchString: String): List<Book> {
+    private fun requestBooksFromApi(): List<Book> {
+
+        var booksFromApi: List<Book> = ArrayList()
+
+        while (booksFromApi.isEmpty() && !isEndOfSearch) {
+
+            booksFromApi = queryApi(startIndex, searchString)
+
+            if (isEndOfSearch) {
+                break
+            }
+        }
+
+        startIndex += 40
+
+        return booksFromApi
+    }
+
+    private fun queryApi(startIndex: Int, searchString: String): List<Book> {
 
         val books = ArrayList<Book>()
 
-        val response = booksApiService.setParameters(startIndex, searchString).execute()
+        val response = booksApiService.setParameters(startIndex, searchString, apiKey).execute()
+        Log.i("Google Books API", response.toString())
 
         val items = response.body()?.items
+
         if (items != null) {
 
             for (item in items) {
@@ -58,8 +69,21 @@ class BooksRemoteRepository(private val context: Context) : BooksDataSource {
                     // Ignore book if it has no id, title, or imageUrl
                 }
             }
+        } else {
+            this.startIndex = 0
+            setSearchString()
         }
-        
+
         return books
+    }
+
+    private fun setSearchString() {
+
+        if (searchStrings.size > 0) {
+            searchString = searchStrings[0]
+            searchStrings.removeAt(0)
+        } else {
+            isEndOfSearch = true
+        }
     }
 }
