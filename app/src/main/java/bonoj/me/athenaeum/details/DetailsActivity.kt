@@ -91,12 +91,19 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View {
             details_description_tv.setText(description)
         }
 
-        details_categories_tv.setText(bookDetails.categories.toString())
+        var categories = bookDetails.categories.toString()
+        if (categories.length < 3) {
+            details_categories_tv.visibility = View.GONE
+        } else {
+            categories = categories.substring(1, categories.length - 2)
+            details_categories_tv.setText(categories)
+        }
 
         details_scroll_view.visibility = View.VISIBLE
     }
 
     override fun displayError() {
+        // TODO Make pretty errors
         Log.i("MVP view", "please check your connection")
     }
 }
