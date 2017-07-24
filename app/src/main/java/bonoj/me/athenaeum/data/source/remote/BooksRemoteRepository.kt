@@ -52,7 +52,10 @@ class BooksRemoteRepository(private val context: Context) : BooksDataSource {
         val language: String = volumeInfo.language ?: ""
         val previewLink: String = volumeInfo.previewLink ?: ""
 
-        val description = cleanDescription(dirtyDescription)
+        val description = RemoteUtils.getCleanDescriptionString(dirtyDescription)
+        
+        val publisherString = RemoteUtils.getPublisherString(publisher, publishedDate)
+
 
         return BookDetails(
                 title = title,
