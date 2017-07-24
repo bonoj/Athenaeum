@@ -23,6 +23,8 @@ class BooksActivity : AppCompatActivity(), BooksContract.View, BooksAdapter.Item
     lateinit internal var presenter: BooksPresenter
     lateinit internal var adapter: BooksAdapter
 
+    private val PARCEL_KEY = "bonoj.me.athenaeum.PARCEL_KEY"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_books)
@@ -40,6 +42,10 @@ class BooksActivity : AppCompatActivity(), BooksContract.View, BooksAdapter.Item
                 EndlessScrollListener({ presenter.loadBooks() }, layoutManager)
         )
 
+        if (savedInstanceState != null) {
+            adapter.refillAdapterAfterDeviceRotation(savedInstanceState.getParcelableArrayList(PARCEL_KEY))
+        }
+
         presenter = BooksPresenter(this, booksDataSource, AndroidSchedulers.mainThread())
         presenter.loadBooks()
     }
@@ -48,6 +54,12 @@ class BooksActivity : AppCompatActivity(), BooksContract.View, BooksAdapter.Item
         super.onStop()
 
         presenter.unsubscribe()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+
+        outState?.putParcelableArrayList(PARCEL_KEY, adapter.getBooksParcel())
     }
 
     override fun displayBooks(books: List<Book>) {
@@ -77,7 +89,7 @@ class BooksActivity : AppCompatActivity(), BooksContract.View, BooksAdapter.Item
     }
 
     override fun onItemClick(view: View, position: Int) {
-        Log.i("MVP view", "clicked position " + position.toString())
+        Log.i("MVP view", "tag " + view.getTag())
 
         val intent = Intent(this, DetailsActivity::class.java)
         startActivity(intent)

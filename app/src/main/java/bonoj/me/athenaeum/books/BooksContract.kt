@@ -15,8 +15,6 @@ interface BooksContract {
 
     interface Presenter {
 
-        //void setView(BooksContract.View view);
-
         fun loadBooks()
 
         fun unsubscribe()

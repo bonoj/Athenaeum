@@ -93,19 +93,15 @@ class BooksAdapter(private val context: Context,
         notifyDataSetChanged()
     }
 
+    fun getBooksParcel() : ArrayList<Book> {
+        return books
+    }
+
     fun getBook(position: Int): Book {
         return books[position]
     }
 
-    // TODO Rmove if resetAdapter is never needed
-    fun resetAdapter() {
-        books.clear()
-        notifyDataSetChanged()
-    }
-
-    // Restores the previous array on device orientation change
-    fun refillAdapter(oldBooks: List<Book>) {
-        books = ArrayList<Book>()
+    fun refillAdapterAfterDeviceRotation(oldBooks: List<Book>) {
         books.addAll(oldBooks)
     }
 }

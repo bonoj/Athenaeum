@@ -7,13 +7,7 @@ import retrofit2.http.Query
 
 
 interface BooksApiService {
-
-    @get:GET("volumes?q=9781451648546&startIndex=0&maxResults=40")
-    val books: Call<BooksApiResponse>
-
-    //    @GET("volumes?q=apple&maxResults=40")
-    //    fun setParameters(@Query("startIndex") startIndex: Int): Call<BooksApiResponse>
-
+    
     @GET("volumes?maxResults=40")
     fun setParameters(@Query("startIndex") startIndex: Int,
                       @Query("q") searchString: String,

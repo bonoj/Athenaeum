@@ -1,7 +1,6 @@
 package bonoj.me.athenaeum.data.source.remote
 
 import android.content.Context
-import android.util.Log
 import bonoj.me.athenaeum.BuildConfig
 import bonoj.me.athenaeum.data.Book
 import bonoj.me.athenaeum.data.BooksDataSource
@@ -9,14 +8,11 @@ import io.reactivex.Single
 
 class BooksRemoteRepository(private val context: Context) : BooksDataSource {
 
-    private val apiKey = BuildConfig.API_KEY
-
     private val booksApiService = BooksApiUtils.apiService
-    //private var booksToReturn: List<Book> = ArrayList()
-
-    private var startIndex = 0
+    private val apiKey = BuildConfig.API_KEY
     private var searchString = "science fiction"
     private val searchStrings = arrayListOf("fantasy", "horror", "history", "science")
+    private var startIndex = 0
     private var isEndOfSearch = false
 
     override val books: Single<List<Book>>
@@ -51,7 +47,6 @@ class BooksRemoteRepository(private val context: Context) : BooksDataSource {
         val books = ArrayList<Book>()
 
         val response = booksApiService.setParameters(startIndex, searchString, apiKey).execute()
-        Log.i("Google Books API", response.toString())
 
         val items = response.body()?.items
 
