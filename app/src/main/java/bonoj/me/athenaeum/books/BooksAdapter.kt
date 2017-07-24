@@ -62,7 +62,7 @@ class BooksAdapter(private val context: Context,
                 .into(holder.listItemIv)
 
         holder.listItemTv.text = title
-        holder.listItemTv.tag = id
+        holder.itemView.tag = id
     }
 
     override fun getItemCount(): Int {
