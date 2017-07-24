@@ -3,7 +3,9 @@ package bonoj.me.athenaeum.data.source.remote
 import android.content.Context
 import bonoj.me.athenaeum.BuildConfig
 import bonoj.me.athenaeum.data.Book
+import bonoj.me.athenaeum.data.BookDetails
 import bonoj.me.athenaeum.data.BooksDataSource
+import bonoj.me.athenaeum.data.model.ImageLinks
 import io.reactivex.Single
 
 class BooksRemoteRepository(private val context: Context) : BooksDataSource {
@@ -23,6 +25,36 @@ class BooksRemoteRepository(private val context: Context) : BooksDataSource {
                 requestBooksFromApi()
             }
         }
+
+    override val bookDetails: Single<BookDetails>
+        get() {
+
+            return Single.fromCallable {
+
+                requestDetailsFromApi()
+            }
+
+        }
+
+    private fun requestDetailsFromApi() : BookDetails {
+        return BookDetails(
+                id = "",
+                title = "",
+                authors = emptyList(),
+                publisher = "",
+                publishedDate = "",
+                description = "",
+                industryIdentifiers = emptyList(),
+                pageCount = 0,
+                printType = "",
+                categories = emptyList(),
+                averageRating = 0.0,
+                ratingsCount = 0,
+                maturityRating = "",
+                imageLinks = ImageLinks("",""),
+                language = "",
+                previewLink = "")
+    }
 
     private fun requestBooksFromApi(): List<Book> {
 

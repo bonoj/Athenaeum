@@ -7,6 +7,4 @@ data class Book(
         val title: String,
         val imageUrl: String
 ) : AutoParcelable
-
-// Ignore error
-// Parcelable implementation handled by Smuggler, no need to provide a CREATOR field.
+// Parcelable implementation handled by Smuggler, no need to provide CREATOR field

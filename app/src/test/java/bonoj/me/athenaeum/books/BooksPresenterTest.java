@@ -42,9 +42,9 @@ public class BooksPresenterTest {
     public void shouldDeliverConnectionsToView() {
 
         List<Book> books = Arrays.asList(
-                new Book("a", "b", "c"),
-                new Book("a", "b", "c"),
-                new Book("a", "b", "c"));
+                new Book("", "", ""),
+                new Book("", "", ""),
+                new Book("", "", ""));
         Mockito.when(booksDataSource.getBooks()).thenReturn(Single.just(books));
 
         presenter.loadBooks();
@@ -53,10 +53,10 @@ public class BooksPresenterTest {
     }
 
     @Test
-    public void shouldHandleNoConnectionsFound() {
+    public void shouldHandleNoBooksFound() {
 
-        List<Book> connections = Collections.emptyList();
-        Mockito.when(booksDataSource.getBooks()).thenReturn(Single.just(connections));
+        List<Book> books = Collections.emptyList();
+        Mockito.when(booksDataSource.getBooks()).thenReturn(Single.just(books));
 
         presenter.loadBooks();
 
@@ -66,7 +66,7 @@ public class BooksPresenterTest {
     @Test
     public void shouldHandleError() {
 
-        Mockito.when(booksDataSource.getBooks()).thenReturn(Single.<List<Book>>error(new Throwable("error")));
+        Mockito.when(booksDataSource.getBooks()).thenReturn(Single.error(new Throwable("error")));
 
         presenter.loadBooks();
 

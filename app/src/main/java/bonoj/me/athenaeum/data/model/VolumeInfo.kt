@@ -21,6 +21,5 @@ data class VolumeInfo(
     val previewLink: String,
     val infoLink: String,
     val canonicalVolumeLink: String,
-    val subtitle: String,
-    val panelizationSummary: PanelizationSummary
+    val subtitle: String, val panelizationSummary: PanelizationSummary
 )
