@@ -25,42 +25,61 @@
                 android:background="@drawable/item_border"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/details_cover_iv"
-                    android:layout_width="300dp"
-                    android:layout_height="400dp"
-                    android:padding="1dp"
-                    android:scaleType="fitXY"
-                    tools:src="@drawable/placeholder" />
+                <LinearLayout
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/details_cover_iv"
+                        android:layout_width="150dp"
+                        android:layout_height="200dp"
+                        android:padding="1dp"
+                        android:scaleType="fitXY"
+                        tools:src="@drawable/placeholder" />
+
+                    <Button
+                        android:id="@+id/details_link_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:onClick="onLinkButtonClicked"
+                        android:text="@string/view_preview_link" />
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="8dp">
 
                     <TextView
                         android:id="@+id/details_title_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:maxLines="3"
+                        android:textSize="24sp"
                         tools:text="The Fellowship of the Ring" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="8dp"
                         android:text="@string/written_by" />
 
                     <TextView
                         android:id="@+id/details_author_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:maxLines="2"
+                        android:textSize="16sp"
                         tools:text="J.R.R. Tolkien" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="8dp"
                         android:text="@string/published_by" />
 
                     <TextView
@@ -73,14 +92,14 @@
                         android:id="@+id/details_pages_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="8dp"
                         tools:text="392 pages" />
 
                     <TextView
                         android:id="@+id/details_ratings_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="8dp"
                         tools:text="Rated 4.4 by 2903 readers" />
 
                 </LinearLayout>
@@ -107,7 +126,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:src="@drawable/google_attribution" />
 
         </LinearLayout>

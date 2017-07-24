@@ -1,5 +1,7 @@
 package bonoj.me.athenaeum.details
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
@@ -19,6 +21,8 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View {
     lateinit var booksDataSource: BooksDataSource
 
     lateinit internal var presenter: DetailsPresenter
+
+    lateinit internal var previewLink: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,6 +67,11 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View {
         } else {
             details_categories_tv.setText(bookDetails.categoriesString)
         }
+        if (bookDetails.previewLink.isEmpty()) {
+            details_link_button.visibility = View.GONE
+        } else {
+            previewLink = bookDetails.previewLink
+        }
 
         details_scroll_view.visibility = View.VISIBLE
     }
@@ -73,5 +82,11 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View {
         details_scroll_view.visibility = View.GONE
         details_empty_tv.visibility = View.VISIBLE
 
+    }
+
+    fun onLinkButtonClicked(view: View) {
+        val browserIntent = Intent(Intent.ACTION_VIEW)
+        browserIntent.data = Uri.parse(previewLink)
+        startActivity(browserIntent)
     }
 }

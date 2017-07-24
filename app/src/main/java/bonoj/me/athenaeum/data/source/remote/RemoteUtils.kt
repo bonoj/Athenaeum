@@ -1,7 +1,6 @@
 package bonoj.me.athenaeum.data.source.remote
 
 import android.content.Context
-import android.util.Log
 import bonoj.me.athenaeum.R
 import org.jsoup.Jsoup
 
@@ -21,8 +20,6 @@ object RemoteUtils {
     }
 
     fun getPublisherString(context: Context, publisher: String, publishedDate: String) : String {
-
-        Log.i("WTF", publisher)
 
         if (publisher.isEmpty()) {
             return context.getString(R.string.unavailable)
@@ -47,7 +44,7 @@ object RemoteUtils {
     fun getCategoriesString(categories: List<String>) : String {
         var categoriesString = categories.toString()
 
-        if (categoriesString.length == 2) {
+        if (categoriesString.length >= 2) {
             categoriesString = categoriesString.substring(1, categoriesString.length - 1)
         }
         return categoriesString
