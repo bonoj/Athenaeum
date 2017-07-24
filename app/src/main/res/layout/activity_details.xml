@@ -1,38 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/details_scroll_view"
+    android:visibility="gone"
+    tools:visibility="visible"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:orientation="vertical"
+        android:padding="4dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:padding="16dp"
+            android:background="@drawable/item_border"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/details_cover_iv"
-            android:layout_width="300dp"
-            android:layout_height="400dp"
-            android:scaleType="fitXY"
-            tools:src="@drawable/placeholder" />
+            <ImageView
+                android:id="@+id/details_cover_iv"
+                android:padding="1dp"
+                android:layout_width="300dp"
+                android:layout_height="400dp"
+                android:scaleType="fitXY"
+                tools:src="@drawable/placeholder" />
 
-        <TextView
-            android:id="@+id/details_title_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="The Fellowship of the Ring" />
+            <LinearLayout
+                android:padding="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/details_title_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="The Fellowship of the Ring" />
+
+                <TextView
+                    android:layout_marginTop="16dp"
+                    android:text="@string/written_by"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/details_author_tv"
+                    tools:text="J.R.R. Tolkien"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_marginTop="16dp"
+                    android:text="@string/published_by"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/details_publisher_tv"
+                    tools:text="J.R.R. Tolkien"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_marginTop="16dp"
+                    android:id="@+id/details_pages_tv"
+                    tools:text="392 pages"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_marginTop="16dp"
+                    android:id="@+id/details_ratings_tv"
+                    tools:text="Rated 4.4 by 2903 readers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
-        <ImageView
-            android:layout_gravity="center"
+        <TextView
+            android:background="@drawable/item_border"
+            android:layout_marginTop="8dp"
+            android:padding="16dp"
+            android:id="@+id/details_description_tv"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:background="@drawable/item_border"
+            android:layout_marginTop="8dp"
+            android:padding="16dp"
+            android:id="@+id/details_categories_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:src="@drawable/google_attribution" />
 
     </LinearLayout>

@@ -8,6 +8,7 @@ import bonoj.me.athenaeum.data.BooksDataSource
 import bonoj.me.athenaeum.data.model.ImageLinks
 import bonoj.me.athenaeum.data.model.IndustryIdentifier
 import io.reactivex.Single
+import org.jsoup.Jsoup
 
 class BooksRemoteRepository(private val context: Context) : BooksDataSource {
 
@@ -39,7 +40,7 @@ class BooksRemoteRepository(private val context: Context) : BooksDataSource {
         val authors: List<String> = volumeInfo.authors ?: ArrayList()
         val publisher: String = volumeInfo.publisher ?: ""
         val publishedDate: String = volumeInfo.publishedDate ?: ""
-        val description: String = volumeInfo.description ?: ""
+        val dirtyDescription: String = volumeInfo.description ?: ""
         val industryIdentifiers: List<IndustryIdentifier> = volumeInfo.industryIdentifiers ?: ArrayList()
         val pageCount: Int = volumeInfo.pageCount ?: 0
         val printType: String = volumeInfo.printType ?: ""
@@ -50,6 +51,8 @@ class BooksRemoteRepository(private val context: Context) : BooksDataSource {
         val imageLinks: ImageLinks = volumeInfo.imageLinks
         val language: String = volumeInfo.language ?: ""
         val previewLink: String = volumeInfo.previewLink ?: ""
+
+        val description = cleanDescription(dirtyDescription)
 
         return BookDetails(
                 title = title,
@@ -125,5 +128,10 @@ class BooksRemoteRepository(private val context: Context) : BooksDataSource {
         } else {
             isEndOfSearch = true
         }
+    }
+
+    private fun cleanDescription(description: String) : String {
+
+        return Jsoup.parse(description).text();
     }
 }

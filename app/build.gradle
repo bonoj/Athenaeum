@@ -42,25 +42,12 @@ dependencies {
     implementation "com.android.support:recyclerview-v7:${supportLibVersion}"
     implementation "com.android.support:support-v4:${supportLibVersion}"
 
-    // TODO Remove if ConstraintLayout never used
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-
-    // TODO Remove if Google Books library not required
-    // Google Books
-    implementation('com.google.apis:google-api-services-books:v1-rev92-1.22.0', {
-        exclude module: 'httpclient'
-        exclude group: 'org.apache.httpcomponents'
-        exclude group: 'org.apache.httpcomponents', module: 'httpclient'
-    })
-
     // Glide
     implementation 'com.github.bumptech.glide:glide:3.8.0'
 
-    // Schematic
-    implementation 'net.simonvt.schematic:schematic:0.7.0'
-    annotationProcessor 'net.simonvt.schematic:schematic-compiler:0.7.0'
+    // Jsoup
+    implementation 'org.jsoup:jsoup:1.10.3'
 
-    // TODO Remove if Stetho never used
     // Stetho
     implementation 'com.facebook.stetho:stetho:1.5.0'
     implementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
@@ -69,7 +56,6 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.google.code.gson:gson:2.8.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
-//    implementation 'com.squareup.retrofit2:adapter-rxjava:2.3.0'
 
     // RxJava
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'

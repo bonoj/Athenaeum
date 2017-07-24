@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Athenaeum</string>
+
+    <string name="written_by">Written by:</string>
+    <string name="published_by">Published by:</string>
+    <string name="pages">pages</string>
+
+    <!--Rated 4.4 by 2903 readers-->
+    <string name="rated">Rated</string>
+    <string name="by">by</string>
+    <string name="readers">readers</string>
+
+
 </resources>
