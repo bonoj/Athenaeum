@@ -70,6 +70,7 @@ class BooksActivity : AppCompatActivity(), BooksContract.View, BooksAdapter.Item
 
         adapter.setBooks(books)
 
+        books_progress_bar.visibility = View.GONE
         books_empy_tv.visibility = View.GONE
         books_list_rv.visibility = View.VISIBLE
     }
@@ -78,6 +79,7 @@ class BooksActivity : AppCompatActivity(), BooksContract.View, BooksAdapter.Item
 
         if (books_list_rv.adapter.itemCount == 0) {
             books_empy_tv.setText(R.string.no_books)
+            books_progress_bar.visibility = View.GONE
             books_list_rv.visibility = View.GONE
             books_empy_tv.visibility = View.VISIBLE
         }
@@ -87,6 +89,7 @@ class BooksActivity : AppCompatActivity(), BooksContract.View, BooksAdapter.Item
 
         if (books_list_rv.adapter.itemCount == 0) {
             books_empy_tv.setText(R.string.connection_error)
+            books_progress_bar.visibility = View.GONE
             books_list_rv.visibility = View.GONE
             books_empy_tv.visibility = View.VISIBLE
         }
