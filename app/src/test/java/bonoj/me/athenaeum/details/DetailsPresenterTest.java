@@ -42,7 +42,6 @@ public class DetailsPresenterTest {
 
         BookDetails bookDetails = new BookDetails(
                 "",
-                "",
                 Collections.emptyList(),
                 "",
                 "",
@@ -58,7 +57,8 @@ public class DetailsPresenterTest {
                 "",
                 "");
 
-        Mockito.when(booksDataSource.getBookDetails()).thenReturn(Single.just(bookDetails));
+        Mockito.when(view.getId()).thenReturn("");
+        Mockito.when(booksDataSource.getBookDetails("")).thenReturn(Single.just(bookDetails));
 
         presenter.loadDetails();
 
@@ -68,7 +68,8 @@ public class DetailsPresenterTest {
     @Test
     public void shouldHandleError() {
 
-        Mockito.when(booksDataSource.getBookDetails()).thenReturn(Single.error(new Throwable("error")));
+        Mockito.when(view.getId()).thenReturn("");
+        Mockito.when(booksDataSource.getBookDetails("")).thenReturn(Single.error(new Throwable("error")));
 
         presenter.loadDetails();
 

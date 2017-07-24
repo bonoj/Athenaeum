@@ -80,11 +80,6 @@ dependencies {
     kapt 'com.google.dagger:dagger-compiler:2.9'
     provided 'org.glassfish:javax.annotation:10.0-b28'
 
-    // PaperParcel
-//    implementation 'nz.bradcampbell:paperparcel:2.0.1'
-//    implementation 'nz.bradcampbell:paperparcel-kotlin:2.0.1'
-//    kapt 'nz.bradcampbell:paperparcel-compiler:2.0.1'
-
     // JUnit and Mockito
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:2.8.47'

@@ -5,6 +5,19 @@
     android:layout_height="match_parent">
 
     <ImageView
+        android:id="@+id/details_cover_iv"
+        tools:src="@drawable/placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_alignBottom="@+id/details_cover_iv"
+        android:id="@+id/details_title_tv"
+        tools:text="The Fellowship of the Ring"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

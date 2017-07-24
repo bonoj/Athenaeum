@@ -6,5 +6,5 @@ interface BooksDataSource {
 
     val books: Single<List<Book>>
 
-    val bookDetails: Single<BookDetails>
+    fun getBookDetails(id: String): Single<BookDetails>
 }

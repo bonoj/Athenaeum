@@ -17,13 +17,18 @@ import javax.inject.Inject
 
 class BooksActivity : AppCompatActivity(), BooksContract.View, BooksAdapter.ItemClickListener {
 
+    companion object {
+        @JvmStatic
+        val DETAILS_INTENT_KEY = "bonoj.me.athenaeum.DETAILS_INTENT_KEY"
+    }
+
+    private val PARCEL_KEY = "bonoj.me.athenaeum.PARCEL_KEY"
+
     @Inject
     lateinit var booksDataSource: BooksDataSource
 
     lateinit internal var presenter: BooksPresenter
     lateinit internal var adapter: BooksAdapter
-
-    private val PARCEL_KEY = "bonoj.me.athenaeum.PARCEL_KEY"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,7 +96,24 @@ class BooksActivity : AppCompatActivity(), BooksContract.View, BooksAdapter.Item
     override fun onItemClick(view: View, position: Int) {
         Log.i("MVP view", "tag " + view.getTag())
 
+        val id: String? = view.getTag() as String?
+
         val intent = Intent(this, DetailsActivity::class.java)
+//        val message = getMessage(intent)
+//        setMessage(intent, id)
+        intent.putExtra(DETAILS_INTENT_KEY, id)
         startActivity(intent)
     }
+
+    //    companion object {
+//        private const val EXTRA_MESSAGE = "bonoj.me.anethaeum.BooksActivity::message"
+//
+//        fun getMessage(intent: Intent): String? {
+//            return intent.getStringExtra(EXTRA_MESSAGE)
+//        }
+//
+//        fun setMessage(intent: Intent, message: String?) {
+//            intent.putExtra(EXTRA_MESSAGE, message)
+//        }
+//    }
 }

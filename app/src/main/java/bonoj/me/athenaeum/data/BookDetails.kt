@@ -4,7 +4,6 @@ import bonoj.me.athenaeum.data.model.ImageLinks
 import bonoj.me.athenaeum.data.model.IndustryIdentifier
 
 class BookDetails(
-        val id: String,
         val title: String,
         val authors: List<String>,
         val publisher: String,

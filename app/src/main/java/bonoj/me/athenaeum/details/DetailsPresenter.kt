@@ -15,17 +15,12 @@ class DetailsPresenter(private val view: DetailsContract.View,
 
     override fun loadDetails() {
 
-        val disposableSingleObserver = booksDataSource.bookDetails
+        val disposableSingleObserver = booksDataSource.getBookDetails(view.id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(mainScheduler)
                 .subscribeWith(object : DisposableSingleObserver<BookDetails>() {
                     override fun onSuccess(bookDetails: BookDetails) {
-
-//                        if (details == null) {
-//                            view.displayNoDetails()
-//                        } else {
-                            view.displayDetails(bookDetails)
-//                        }
+                        view.displayDetails(bookDetails)
                     }
 
                     override fun onError(e: Throwable) {

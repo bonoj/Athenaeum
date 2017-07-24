@@ -6,9 +6,9 @@ interface DetailsContract {
 
     interface View {
 
-        fun displayDetails(bookDetails: BookDetails)
+        val id: String
 
-        fun displayNoDetails()
+        fun displayDetails(bookDetails: BookDetails)
 
         fun displayError()
     }
