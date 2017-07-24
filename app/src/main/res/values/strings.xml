@@ -4,6 +4,7 @@
     <string name="written_by">Written by:</string>
     <string name="published_by">Published by:</string>
     <string name="pages">pages</string>
+    <string name="unavailable">Unavailable</string>
 
     <!--Rated 4.4 by 2903 readers-->
     <string name="rated">Rated</string>
@@ -11,5 +12,7 @@
     <string name="readers">readers</string>
     <string name="reader">reader</string>
 
+    <string name="no_books">No books currently available.</string>
+    <string name="connection_error">Please check your connection.</string>
 
 </resources>

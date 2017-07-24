@@ -1,109 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/details_scroll_view"
-    android:visibility="gone"
-    tools:visibility="visible"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:padding="4dp"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:id="@+id/details_scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        tools:visibility="visible">
 
         <LinearLayout
-            android:background="@drawable/item_border"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/details_cover_iv"
-                android:padding="1dp"
-                android:layout_width="300dp"
-                android:layout_height="400dp"
-                android:scaleType="fitXY"
-                tools:src="@drawable/placeholder" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="4dp">
 
             <LinearLayout
-                android:padding="16dp"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:background="@drawable/item_border"
+                android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/details_title_tv"
+                <ImageView
+                    android:id="@+id/details_cover_iv"
+                    android:layout_width="300dp"
+                    android:layout_height="400dp"
+                    android:padding="1dp"
+                    android:scaleType="fitXY"
+                    tools:src="@drawable/placeholder" />
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="The Fellowship of the Ring" />
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
-                <TextView
-                    android:layout_marginTop="16dp"
-                    android:text="@string/written_by"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/details_title_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="The Fellowship of the Ring" />
 
-                <TextView
-                    android:id="@+id/details_author_tv"
-                    tools:text="J.R.R. Tolkien"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/written_by" />
 
-                <TextView
-                    android:layout_marginTop="16dp"
-                    android:text="@string/published_by"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/details_author_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="J.R.R. Tolkien" />
 
-                <TextView
-                    android:id="@+id/details_publisher_tv"
-                    tools:text="J.R.R. Tolkien"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/published_by" />
 
-                <TextView
-                    android:layout_marginTop="16dp"
-                    android:id="@+id/details_pages_tv"
-                    tools:text="392 pages"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/details_publisher_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="J.R.R. Tolkien" />
 
-                <TextView
-                    android:layout_marginTop="16dp"
-                    android:id="@+id/details_ratings_tv"
-                    tools:text="Rated 4.4 by 2903 readers"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/details_pages_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        tools:text="392 pages" />
+
+                    <TextView
+                        android:id="@+id/details_ratings_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        tools:text="Rated 4.4 by 2903 readers" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/details_description_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/item_border"
+                android:padding="16dp" />
+
+            <TextView
+                android:id="@+id/details_categories_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/item_border"
+                android:padding="16dp" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/google_attribution" />
+
         </LinearLayout>
 
-        <TextView
-            android:background="@drawable/item_border"
-            android:layout_marginTop="8dp"
-            android:padding="16dp"
-            android:id="@+id/details_description_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+    </ScrollView>
 
-        <TextView
-            android:background="@drawable/item_border"
-            android:layout_marginTop="8dp"
-            android:padding="16dp"
-            android:id="@+id/details_categories_tv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/details_empty_tv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:visibility="gone"
+        tools:text="@string/connection_error" />
 
-        <ImageView
-            android:layout_marginTop="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@drawable/google_attribution" />
-
-    </LinearLayout>
-
-</ScrollView>
+</LinearLayout>

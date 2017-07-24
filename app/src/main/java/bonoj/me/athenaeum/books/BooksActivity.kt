@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
-import android.util.Log
 import android.view.View
 import bonoj.me.athenaeum.R
 import bonoj.me.athenaeum.data.Book
@@ -76,25 +75,24 @@ class BooksActivity : AppCompatActivity(), BooksContract.View, BooksAdapter.Item
     }
 
     override fun displayNoBooks() {
-        Log.i("MVP view", "no books")
 
         if (books_list_rv.adapter.itemCount == 0) {
+            books_empy_tv.setText(R.string.no_books)
             books_list_rv.visibility = View.GONE
             books_empy_tv.visibility = View.VISIBLE
         }
     }
 
     override fun displayError() {
-        Log.i("MVP view", "please check your connection")
 
         if (books_list_rv.adapter.itemCount == 0) {
+            books_empy_tv.setText(R.string.connection_error)
             books_list_rv.visibility = View.GONE
             books_empy_tv.visibility = View.VISIBLE
         }
     }
 
     override fun onItemClick(view: View, position: Int) {
-        Log.i("MVP view", "tag " + view.getTag())
 
         val id: String? = view.getTag() as String?
 

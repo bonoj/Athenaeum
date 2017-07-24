@@ -8,8 +8,6 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
-import java.util.Collections;
-
 import bonoj.me.athenaeum.data.BookDetails;
 import bonoj.me.athenaeum.data.BooksDataSource;
 import bonoj.me.athenaeum.data.model.ImageLinks;
@@ -42,19 +40,13 @@ public class DetailsPresenterTest {
 
         BookDetails bookDetails = new BookDetails(
                 "",
-                Collections.emptyList(),
                 "",
                 "",
                 "",
-                Collections.emptyList(),
-                0,
                 "",
-                Collections.emptyList(),
-                0.0,
-                0,
+                "",
                 "",
                 new ImageLinks("", ""),
-                "",
                 "");
 
         Mockito.when(view.getId()).thenReturn("");

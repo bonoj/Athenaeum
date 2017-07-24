@@ -2,7 +2,6 @@ package bonoj.me.athenaeum.details
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.View
 import bonoj.me.athenaeum.R
 import bonoj.me.athenaeum.books.BooksActivity
@@ -50,60 +49,29 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View {
                 .into(details_cover_iv)
 
         details_title_tv.setText(bookDetails.title)
-
-        var authorString: String = ""
-        var i = 1
-        for (author in bookDetails.authors) {
-            authorString += author
-            if (i < bookDetails.authors.size) {
-                authorString += "\n"
-            }
-            i++
-        }
-        details_author_tv.setText(authorString)
-
-        val publisherString = bookDetails.publisher + "\n" + bookDetails.publishedDate
-        details_publisher_tv.setText(publisherString)
-
-        val pages = bookDetails.pageCount
-        if (pages == 0) {
-            details_pages_tv.visibility = View.GONE
-        } else {
-            val pageString = pages.toString() + " " + getString(R.string.pages)
-            details_pages_tv.setText(pageString)
-        }
-
-        if (bookDetails.averageRating == 0.0) {
-            details_ratings_tv.visibility = View.GONE
-        } else {
-            val ratings =
-                    getString(R.string.rated) + " " +
-                            bookDetails.averageRating + " " +
-                            getString(R.string.by) + " " +
-                            bookDetails.ratingsCount + " " + getString(R.string.readers)
-            details_ratings_tv.setText(ratings)
-        }
-
-        val description = bookDetails.description
-        if (description == "") {
+        details_publisher_tv.setText(bookDetails.publisherString)
+        details_author_tv.setText(bookDetails.authorString)
+        details_pages_tv.setText(bookDetails.pageString)
+        details_ratings_tv.setText(bookDetails.ratingsString)
+        if (bookDetails.description.length < 3) {
             details_description_tv.visibility = View.GONE
         } else {
-            details_description_tv.setText(description)
+            details_description_tv.setText(bookDetails.description)
         }
-
-        var categories = bookDetails.categories.toString()
-        if (categories.length < 3) {
+        if (bookDetails.categoriesString.length < 3) {
             details_categories_tv.visibility = View.GONE
         } else {
-            categories = categories.substring(1, categories.length - 2)
-            details_categories_tv.setText(categories)
+            details_categories_tv.setText(bookDetails.categoriesString)
         }
 
         details_scroll_view.visibility = View.VISIBLE
     }
 
     override fun displayError() {
-        // TODO Make pretty errors
-        Log.i("MVP view", "please check your connection")
+
+        details_empty_tv.setText(R.string.connection_error)
+        details_scroll_view.visibility = View.GONE
+        details_empty_tv.visibility = View.VISIBLE
+
     }
 }

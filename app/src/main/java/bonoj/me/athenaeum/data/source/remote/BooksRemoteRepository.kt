@@ -6,9 +6,7 @@ import bonoj.me.athenaeum.data.Book
 import bonoj.me.athenaeum.data.BookDetails
 import bonoj.me.athenaeum.data.BooksDataSource
 import bonoj.me.athenaeum.data.model.ImageLinks
-import bonoj.me.athenaeum.data.model.IndustryIdentifier
 import io.reactivex.Single
-import org.jsoup.Jsoup
 
 class BooksRemoteRepository(private val context: Context) : BooksDataSource {
 
@@ -41,39 +39,29 @@ class BooksRemoteRepository(private val context: Context) : BooksDataSource {
         val publisher: String = volumeInfo.publisher ?: ""
         val publishedDate: String = volumeInfo.publishedDate ?: ""
         val dirtyDescription: String = volumeInfo.description ?: ""
-        val industryIdentifiers: List<IndustryIdentifier> = volumeInfo.industryIdentifiers ?: ArrayList()
         val pageCount: Int = volumeInfo.pageCount ?: 0
-        val printType: String = volumeInfo.printType ?: ""
         val categories: List<String> = volumeInfo.categories ?: ArrayList()
         val averageRating: Double = volumeInfo.averageRating ?: 0.0
         val ratingsCount: Int = volumeInfo.ratingsCount?: 0
-        val maturityRating: String = volumeInfo.maturityRating ?: ""
         val imageLinks: ImageLinks = volumeInfo.imageLinks
-        val language: String = volumeInfo.language ?: ""
         val previewLink: String = volumeInfo.previewLink ?: ""
 
         val description = RemoteUtils.getCleanDescriptionString(dirtyDescription)
         val authorString = RemoteUtils.getAuthorString(authors)
-        val publisherString = RemoteUtils.getPublisherString(publisher, publishedDate)
+        val publisherString = RemoteUtils.getPublisherString(context, publisher, publishedDate)
         val pageString = RemoteUtils.getPageString(context, pageCount)
         val categoriesString = RemoteUtils.getCategoriesString(categories)
         val ratingsString = RemoteUtils.getRatingsString(context, averageRating, ratingsCount)
 
         return BookDetails(
                 title = title,
-                authors = authors,
-                publisher = publisher,
-                publishedDate = publishedDate,
+                authorString = authorString,
+                publisherString = publisherString,
+                pageString = pageString,
+                categoriesString = categoriesString,
+                ratingsString = ratingsString,
                 description = description,
-                industryIdentifiers = industryIdentifiers,
-                pageCount = pageCount,
-                printType = printType,
-                categories = categories,
-                averageRating = averageRating,
-                ratingsCount = ratingsCount,
-                maturityRating = maturityRating,
                 imageLinks = imageLinks,
-                language = language,
                 previewLink = previewLink)
     }
 
@@ -133,10 +121,5 @@ class BooksRemoteRepository(private val context: Context) : BooksDataSource {
         } else {
             isEndOfSearch = true
         }
-    }
-
-    private fun cleanDescription(description: String) : String {
-
-        return Jsoup.parse(description).text();
     }
 }
