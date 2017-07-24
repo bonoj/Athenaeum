@@ -53,9 +53,11 @@ class BooksRemoteRepository(private val context: Context) : BooksDataSource {
         val previewLink: String = volumeInfo.previewLink ?: ""
 
         val description = RemoteUtils.getCleanDescriptionString(dirtyDescription)
-        
+        val authorString = RemoteUtils.getAuthorString(authors)
         val publisherString = RemoteUtils.getPublisherString(publisher, publishedDate)
-
+        val pageString = RemoteUtils.getPageString(context, pageCount)
+        val categoriesString = RemoteUtils.getCategoriesString(categories)
+        val ratingsString = RemoteUtils.getRatingsString(context, averageRating, ratingsCount)
 
         return BookDetails(
                 title = title,
