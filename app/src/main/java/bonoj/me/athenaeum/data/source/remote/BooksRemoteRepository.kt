@@ -1,7 +1,6 @@
 package bonoj.me.athenaeum.data.source.remote
 
 import android.content.Context
-import android.util.Log
 import bonoj.me.athenaeum.BuildConfig
 import bonoj.me.athenaeum.data.Book
 import bonoj.me.athenaeum.data.BookDetails
@@ -22,10 +21,7 @@ class BooksRemoteRepository(private val context: Context) : BooksDataSource {
     override val books: Single<List<Book>>
         get() {
 
-            return Single.fromCallable {
-
-                requestBooksFromApi()
-            }
+            return Single.fromCallable { requestBooksFromApi() }
         }
 
     override fun getBookDetails(id: String): Single<BookDetails> {
@@ -33,41 +29,17 @@ class BooksRemoteRepository(private val context: Context) : BooksDataSource {
         return Single.fromCallable { requestDetailsFromApi(id) }
     }
 
-//    private fun checkNotNull(unit: Unit) : Boolean {
-//        if (unit != null)
-//    }
-
     private fun requestDetailsFromApi(id: String): BookDetails {
-
-//        var title: String = ""
-//        var authors: List<String> = ArrayList()
-//        var publisher: String = ""
-//        var publishedDate: String = ""
-//        var description: String = ""
-//        var industryIdentifiers: List<IndustryIdentifier> = ArrayList()
-//        var pageCount: Int = 0
-//        var printType: String = ""
-//        var categories: List<String> = ArrayList()
-//        var averageRating: Double = 0.0
-//        var ratingsCount: Int = 0
-//        var maturityRating: String = ""
-//        var imageLinks: ImageLinks = ImageLinks("", "")
-//        var language: String = ""
-//        var previewLink: String = ""
 
         val response = booksApiService.setId(id).execute()
 
-        Log.i("GOOD", "response good")
-
         val volumeInfo = response.body()?.volumeInfo
-
-        Log.i("GOOD", "volumeInfo good")
 
         val title: String = volumeInfo!!.title
         val authors: List<String> = volumeInfo.authors ?: ArrayList()
         val publisher: String = volumeInfo.publisher ?: ""
         val publishedDate: String = volumeInfo.publishedDate ?: ""
-        val description: String = volumeInfo.description ?: "No description."
+        val description: String = volumeInfo.description ?: ""
         val industryIdentifiers: List<IndustryIdentifier> = volumeInfo.industryIdentifiers ?: ArrayList()
         val pageCount: Int = volumeInfo.pageCount ?: 0
         val printType: String = volumeInfo.printType ?: ""
@@ -78,116 +50,6 @@ class BooksRemoteRepository(private val context: Context) : BooksDataSource {
         val imageLinks: ImageLinks = volumeInfo.imageLinks
         val language: String = volumeInfo.language ?: ""
         val previewLink: String = volumeInfo.previewLink ?: ""
-
-        if(description == null) {
-            Log.i("LIES", "description is null")
-        } else {
-            Log.i("LIES", description)
-        }
-
-//        if (volumeInfo != null) {
-//
-//            title = volumeInfo.title
-//            imageLinks = volumeInfo.imageLinks
-//
-//            Log.i("GOOD", "title and imageLinks good")
-//
-//            try {
-//                authors = volumeInfo.authors
-//            } catch(e: Exception) {
-//                // Ignore exception
-//            }
-//            Log.i("GOOD", "authors" + authors)
-//            try {
-//                publisher = volumeInfo.publisher
-//            } catch(e: Exception) {
-//                // Ignore exception
-//            }
-//            Log.i("GOOD", "publisher" + publisher)
-//            try {
-//                publishedDate = volumeInfo.publishedDate
-//            } catch(e: Exception) {
-//                // Ignore exception
-//            }
-//            Log.i("GOOD", "publishedDate" + publishedDate)
-//            try {
-//                description = volumeInfo.description
-//            } catch(e: Exception) {
-//                // Ignore exception
-//            }
-//            Log.i("GOOD", "description" + description)
-//            try {
-//                industryIdentifiers = volumeInfo.industryIdentifiers
-//            } catch(e: Exception) {
-//                // Ignore exception
-//            }
-//            Log.i("GOOD", "industryIdentifiers" + industryIdentifiers.toString())
-//            try {
-//                pageCount = volumeInfo.pageCount
-//            } catch(e: Exception) {
-//                // Ignore exception
-//            }
-//            Log.i("GOOD", "pageCount" + pageCount)
-//            try {
-//                printType = volumeInfo.printType
-//            } catch(e: Exception) {
-//                // Ignore exception
-//            }
-//            Log.i("GOOD", "printType" + printType)
-//            try {
-//                categories = volumeInfo.categories
-//            } catch(e: Exception) {
-//                // Ignore exception
-//            }
-//            Log.i("GOOD", "categories" + categories.toString())
-//            try {
-//                averageRating = volumeInfo.averageRating
-//            } catch(e: Exception) {
-//                // Ignore exception
-//            }
-//            Log.i("GOOD", "averageRating" + averageRating)
-//            try {
-//                ratingsCount = volumeInfo.ratingsCount
-//            } catch(e: Exception) {
-//                // Ignore exception
-//            }
-//            Log.i("GOOD", "ratingsCount" + ratingsCount)
-//            try {
-//                maturityRating = volumeInfo.maturityRating
-//            } catch(e: Exception) {
-//                // Ignore exception
-//            }
-//            Log.i("GOOD", "maturityRating" + maturityRating)
-//            try {
-//                language = volumeInfo.language
-//            } catch(e: Exception) {
-//                // Ignore exception
-//            }
-//            Log.i("GOOD", "language" + language)
-//            try {
-//                previewLink = volumeInfo.previewLink
-//            } catch(e: Exception) {
-//                // Ignore exception
-//            }
-//            Log.i("GOOD", "previewLink" + previewLink)
-//        }
-
-//        return BookDetails(
-//                title = title,
-//                authors = authors,
-//                publisher = publisher,
-//                publishedDate = publishedDate,
-//                description = description,
-//                industryIdentifiers = industryIdentifiers,
-//                pageCount = pageCount,
-//                printType = printType,
-//                categories = categories,
-//                averageRating = averageRating,
-//                ratingsCount = ratingsCount,
-//                maturityRating = maturityRating,
-//                imageLinks = imageLinks,
-//                language = language,
-//                previewLink = previewLink)
 
         return BookDetails(
                 title = title,

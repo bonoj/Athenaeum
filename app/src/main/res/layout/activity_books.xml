@@ -7,7 +7,7 @@
     tools:context="bonoj.me.athenaeum.books.BooksActivity">
 
     <TextView
-        android:id="@+id/books_debug_tv"
+        android:id="@+id/books_empy_tv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"

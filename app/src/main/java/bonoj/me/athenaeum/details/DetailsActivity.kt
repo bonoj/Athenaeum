@@ -19,6 +19,7 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View {
     lateinit var booksDataSource: BooksDataSource
 
     lateinit internal var presenter: DetailsPresenter
+    lateinit internal var bookDetails: BookDetails
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +28,7 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View {
         AthenaeumApplication.graph.inject(this)
 
         presenter = DetailsPresenter(this, booksDataSource, AndroidSchedulers.mainThread())
-        //presenter.loadDetails(intent.getStringExtra(BooksActivity.DETAILS_INTENT_KEY))
+
         presenter.loadDetails()
     }
 
@@ -42,7 +43,11 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View {
 
     override fun displayDetails(bookDetails: BookDetails) {
 
-        Log.i("DETAILS VIEW", bookDetails.toString())
+        this.bookDetails = bookDetails
+
+        supportActionBar?.setTitle(bookDetails.title)
+
+
 
         Glide.with(this)
                 .load(bookDetails.imageLinks.thumbnail)

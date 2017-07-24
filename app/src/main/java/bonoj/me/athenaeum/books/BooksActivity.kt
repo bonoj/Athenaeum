@@ -22,7 +22,7 @@ class BooksActivity : AppCompatActivity(), BooksContract.View, BooksAdapter.Item
         val DETAILS_INTENT_KEY = "bonoj.me.athenaeum.DETAILS_INTENT_KEY"
     }
 
-    private val PARCEL_KEY = "bonoj.me.athenaeum.PARCEL_KEY"
+    private val BOOKS_PARCEL_KEY = "bonoj.me.athenaeum.BOOKS_PARCEL_KEY"
 
     @Inject
     lateinit var booksDataSource: BooksDataSource
@@ -48,7 +48,7 @@ class BooksActivity : AppCompatActivity(), BooksContract.View, BooksAdapter.Item
         )
 
         if (savedInstanceState != null) {
-            adapter.refillAdapterAfterDeviceRotation(savedInstanceState.getParcelableArrayList(PARCEL_KEY))
+            adapter.refillAdapterAfterDeviceRotation(savedInstanceState.getParcelableArrayList(BOOKS_PARCEL_KEY))
         }
 
         presenter = BooksPresenter(this, booksDataSource, AndroidSchedulers.mainThread())
@@ -64,14 +64,14 @@ class BooksActivity : AppCompatActivity(), BooksContract.View, BooksAdapter.Item
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
 
-        outState?.putParcelableArrayList(PARCEL_KEY, adapter.getBooksParcel())
+        outState?.putParcelableArrayList(BOOKS_PARCEL_KEY, adapter.getBooksParcel())
     }
 
     override fun displayBooks(books: List<Book>) {
 
         adapter.setBooks(books)
 
-        books_debug_tv.visibility = View.GONE
+        books_empy_tv.visibility = View.GONE
         books_list_rv.visibility = View.VISIBLE
     }
 
@@ -80,7 +80,7 @@ class BooksActivity : AppCompatActivity(), BooksContract.View, BooksAdapter.Item
 
         if (books_list_rv.adapter.itemCount == 0) {
             books_list_rv.visibility = View.GONE
-            books_debug_tv.visibility = View.VISIBLE
+            books_empy_tv.visibility = View.VISIBLE
         }
     }
 
@@ -89,7 +89,7 @@ class BooksActivity : AppCompatActivity(), BooksContract.View, BooksAdapter.Item
 
         if (books_list_rv.adapter.itemCount == 0) {
             books_list_rv.visibility = View.GONE
-            books_debug_tv.visibility = View.VISIBLE
+            books_empy_tv.visibility = View.VISIBLE
         }
     }
 
@@ -99,21 +99,7 @@ class BooksActivity : AppCompatActivity(), BooksContract.View, BooksAdapter.Item
         val id: String? = view.getTag() as String?
 
         val intent = Intent(this, DetailsActivity::class.java)
-//        val message = getMessage(intent)
-//        setMessage(intent, id)
         intent.putExtra(DETAILS_INTENT_KEY, id)
         startActivity(intent)
     }
-
-    //    companion object {
-//        private const val EXTRA_MESSAGE = "bonoj.me.anethaeum.BooksActivity::message"
-//
-//        fun getMessage(intent: Intent): String? {
-//            return intent.getStringExtra(EXTRA_MESSAGE)
-//        }
-//
-//        fun setMessage(intent: Intent, message: String?) {
-//            intent.putExtra(EXTRA_MESSAGE, message)
-//        }
-//    }
 }

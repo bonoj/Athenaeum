@@ -2,6 +2,7 @@ package bonoj.me.athenaeum.data
 
 import bonoj.me.athenaeum.data.model.ImageLinks
 import bonoj.me.athenaeum.data.model.IndustryIdentifier
+import io.mironov.smuggler.AutoParcelable
 
 class BookDetails(
         val title: String,
