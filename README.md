@@ -1,5 +1,5 @@
 # Athenaeum
-A book library with clean architecture powered by RxJava, Dagger 2, Retrofit, and the Google Books API.
+A book library with clean architecture powered by RxJava, Dagger, Retrofit, and the Google Books API.
 
 #### *API_KEY REQUIRED!*
 The following line must be added to your gradle.properties file:
