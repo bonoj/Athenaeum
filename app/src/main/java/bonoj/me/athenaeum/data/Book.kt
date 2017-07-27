@@ -7,16 +7,5 @@ data class Book(
         val id: String,
         val title: String,
         val imageUrl: String
-) : AutoParcelable {
-    constructor(id: String,
-                title: String,
-                authorString: String,
-                publisherString: String,
-                pageString: String,
-                categoriesString: String,
-                ratingsString: String,
-                description: String,
-                imageLinks: ImageLinks,
-                previewLink: String) : this(id, title, imageLinks.thumbnail)
-}
+) : AutoParcelable
 // Parcelable implementation handled by Smuggler, no need to provide CREATOR field

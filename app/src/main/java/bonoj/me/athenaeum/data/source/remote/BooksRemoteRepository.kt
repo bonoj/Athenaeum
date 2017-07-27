@@ -1,10 +1,12 @@
 package bonoj.me.athenaeum.data.source.remote
 
 import android.content.Context
+import android.util.Log
 import bonoj.me.athenaeum.BuildConfig
 import bonoj.me.athenaeum.data.Book
 import bonoj.me.athenaeum.data.BookDetails
 import bonoj.me.athenaeum.data.BooksDataSource
+import bonoj.me.athenaeum.data.KotlinBook
 import bonoj.me.athenaeum.data.model.ImageLinks
 import io.reactivex.Single
 
