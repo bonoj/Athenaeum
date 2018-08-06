@@ -1,6 +1,5 @@
 package bonoj.me.athenaeum.data.source.remote
 
-import com.facebook.stetho.okhttp3.StethoInterceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -12,7 +11,6 @@ object RetrofitClient {
     fun getClient(baseUrl: String): Retrofit {
 
         val okHttpClient = OkHttpClient.Builder()
-                .addNetworkInterceptor(StethoInterceptor())
                 .build()
 
         retrofit = Retrofit.Builder()

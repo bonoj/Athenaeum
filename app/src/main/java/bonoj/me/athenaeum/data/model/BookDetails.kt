@@ -1,6 +1,4 @@
-package bonoj.me.athenaeum.data
-
-import bonoj.me.athenaeum.data.model.ImageLinks
+package bonoj.me.athenaeum.data.model
 
 class BookDetails(
         val title: String,

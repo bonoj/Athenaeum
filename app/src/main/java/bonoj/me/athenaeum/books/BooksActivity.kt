@@ -6,8 +6,8 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.view.View
 import bonoj.me.athenaeum.R
-import bonoj.me.athenaeum.data.Book
-import bonoj.me.athenaeum.data.BooksDataSource
+import bonoj.me.athenaeum.data.model.Book
+import bonoj.me.athenaeum.data.source.BooksDataSource
 import bonoj.me.athenaeum.details.DetailsActivity
 import bonoj.me.athenaeum.root.AthenaeumApplication
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -26,8 +26,9 @@ class BooksActivity : AppCompatActivity(), BooksContract.View, BooksAdapter.Item
     @Inject
     lateinit var booksDataSource: BooksDataSource
 
-    lateinit internal var presenter: BooksPresenter
-    lateinit internal var adapter: BooksAdapter
+    lateinit var presenter: BooksPresenter
+
+    lateinit var adapter: BooksAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +52,7 @@ class BooksActivity : AppCompatActivity(), BooksContract.View, BooksAdapter.Item
         }
 
         presenter = BooksPresenter(this, booksDataSource, AndroidSchedulers.mainThread())
+
         presenter.loadBooks()
     }
 
@@ -71,27 +73,27 @@ class BooksActivity : AppCompatActivity(), BooksContract.View, BooksAdapter.Item
         adapter.setBooks(books)
 
         books_progress_bar.visibility = View.GONE
-        books_empy_tv.visibility = View.GONE
+        books_empty_tv.visibility = View.GONE
         books_list_rv.visibility = View.VISIBLE
     }
 
     override fun displayNoBooks() {
 
-        if (books_list_rv.adapter.itemCount == 0) {
-            books_empy_tv.setText(R.string.no_books)
+        if (books_list_rv.adapter?.itemCount == 0) {
+            books_empty_tv.setText(R.string.no_books)
             books_progress_bar.visibility = View.GONE
             books_list_rv.visibility = View.GONE
-            books_empy_tv.visibility = View.VISIBLE
+            books_empty_tv.visibility = View.VISIBLE
         }
     }
 
     override fun displayError() {
 
-        if (books_list_rv.adapter.itemCount == 0) {
-            books_empy_tv.setText(R.string.connection_error)
+        if (books_list_rv.adapter?.itemCount == 0) {
+            books_empty_tv.setText(R.string.connection_error)
             books_progress_bar.visibility = View.GONE
             books_list_rv.visibility = View.GONE
-            books_empy_tv.visibility = View.VISIBLE
+            books_empty_tv.visibility = View.VISIBLE
         }
     }
 

@@ -8,10 +8,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import bonoj.me.athenaeum.R
-import bonoj.me.athenaeum.data.Book
+import bonoj.me.athenaeum.data.model.Book
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.books_list_item.view.*
 import kotlin.properties.Delegates
+
+
 
 
 class BooksAdapter(private val context: Context,
@@ -56,9 +59,14 @@ class BooksAdapter(private val context: Context,
         val title = books[position].title
         val imageUrl = books[position].imageUrl
 
+        val requestOptions = RequestOptions()
+        requestOptions.placeholder(R.drawable.placeholder)
+        //requestOptions.error(R.drawable.placeholder)
+
         Glide.with(context)
                 .load(imageUrl)
-                .placeholder(R.drawable.placeholder)
+                .apply(requestOptions)
+                //.placeholder(R.drawable.placeholder)
                 .into(holder.listItemIv)
 
         holder.listItemTv.text = title

@@ -1,6 +1,6 @@
 package bonoj.me.athenaeum.details
 
-import bonoj.me.athenaeum.data.BookDetails
+import bonoj.me.athenaeum.data.model.BookDetails
 
 interface DetailsContract {
 

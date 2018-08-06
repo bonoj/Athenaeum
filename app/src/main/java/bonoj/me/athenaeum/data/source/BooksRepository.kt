@@ -1,15 +1,14 @@
-package bonoj.me.athenaeum.data.source.remote
+package bonoj.me.athenaeum.data.source
 
 import android.content.Context
-import android.util.Log
 import bonoj.me.athenaeum.BuildConfig
-import bonoj.me.athenaeum.data.Book
-import bonoj.me.athenaeum.data.BookDetails
-import bonoj.me.athenaeum.data.BooksDataSource
+import bonoj.me.athenaeum.data.model.Book
+import bonoj.me.athenaeum.data.model.BookDetails
 import bonoj.me.athenaeum.data.model.ImageLinks
+import bonoj.me.athenaeum.data.source.remote.BooksApiUtils
 import io.reactivex.Single
 
-class BooksRemoteRepository(private val context: Context) : BooksDataSource {
+class BooksRepository(private val context: Context) : BooksDataSource {
 
     private val booksApiService = BooksApiUtils.apiService
     private val apiKey = BuildConfig.API_KEY
@@ -20,16 +19,14 @@ class BooksRemoteRepository(private val context: Context) : BooksDataSource {
 
     override val books: Single<List<Book>>
         get() {
-
             return Single.fromCallable { requestBooksFromApi() }
         }
 
     override fun getBookDetails(id: String): Single<BookDetails> {
-
         return Single.fromCallable { requestDetailsFromApi(id) }
     }
 
-    private fun requestDetailsFromApi(id: String): BookDetails {
+    override fun requestDetailsFromApi(id: String): BookDetails {
 
         val response = booksApiService.setId(id).execute()
 

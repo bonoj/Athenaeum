@@ -12,8 +12,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import bonoj.me.athenaeum.data.Book;
-import bonoj.me.athenaeum.data.BooksDataSource;
+import bonoj.me.athenaeum.data.model.Book;
+import bonoj.me.athenaeum.data.source.BooksDataSource;
 import io.reactivex.Single;
 import io.reactivex.plugins.RxJavaPlugins;
 import io.reactivex.schedulers.Schedulers;

@@ -1,6 +1,6 @@
 package bonoj.me.athenaeum.books
 
-import bonoj.me.athenaeum.data.Book
+import bonoj.me.athenaeum.data.model.Book
 
 interface BooksContract {
 

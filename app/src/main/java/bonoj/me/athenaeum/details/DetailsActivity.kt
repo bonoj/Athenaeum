@@ -1,5 +1,7 @@
 package bonoj.me.athenaeum.details
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -7,11 +9,11 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import bonoj.me.athenaeum.R
 import bonoj.me.athenaeum.books.BooksActivity
-import bonoj.me.athenaeum.data.BookDetails
-import bonoj.me.athenaeum.data.BooksDataSource
+import bonoj.me.athenaeum.data.model.BookDetails
+import bonoj.me.athenaeum.data.source.BooksDataSource
 import bonoj.me.athenaeum.root.AthenaeumApplication
 import com.bumptech.glide.Glide
-import io.reactivex.android.schedulers.AndroidSchedulers
+import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.activity_details.*
 import javax.inject.Inject
 
@@ -20,9 +22,7 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View {
     @Inject
     lateinit var booksDataSource: BooksDataSource
 
-    lateinit internal var presenter: DetailsPresenter
-
-    lateinit internal var previewLink: String
+    //lateinit var presenter: DetailsPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,14 +30,27 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View {
 
         AthenaeumApplication.graph.inject(this)
 
-        presenter = DetailsPresenter(this, booksDataSource, AndroidSchedulers.mainThread())
-        presenter.loadDetails()
+//        presenter = DetailsPresenter(this, booksDataSource, AndroidSchedulers.mainThread())
+//        presenter.loadDetails()
+
+        val detailsViewModel = ViewModelProviders.of(this).get(DetailsViewModel::class.java)
+
+        detailsViewModel.getBookDetails(id).observe(this, Observer { bookDetails ->
+            if (bookDetails != null) {
+
+                displayDetails(bookDetails)
+
+                //Log.i("BOOX", bookDetails.toString())
+            }
+        })
+
+        // TODO Handle network errors.
     }
 
     override fun onStop() {
         super.onStop()
 
-        presenter.unsubscribe()
+       // presenter.unsubscribe()
     }
 
     override val id: String
@@ -47,9 +60,12 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View {
 
         supportActionBar?.setTitle(bookDetails.title)
 
+        val requestOptions = RequestOptions()
+        requestOptions.placeholder(R.drawable.placeholder)
+
         Glide.with(this)
                 .load(bookDetails.imageLinks.thumbnail)
-                .placeholder(R.drawable.placeholder)
+                .apply(requestOptions)
                 .into(details_cover_iv)
 
         details_title_tv.setText(bookDetails.title)
@@ -70,7 +86,11 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View {
         if (bookDetails.previewLink.isEmpty()) {
             details_link_button.visibility = View.GONE
         } else {
-            previewLink = bookDetails.previewLink
+            details_link_button.setOnClickListener {
+                val browserIntent = Intent(Intent.ACTION_VIEW)
+                browserIntent.data = Uri.parse(bookDetails.previewLink)
+                startActivity(browserIntent)
+            }
         }
 
         details_scroll_view.visibility = View.VISIBLE
@@ -82,11 +102,5 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View {
         details_scroll_view.visibility = View.GONE
         details_empty_tv.visibility = View.VISIBLE
 
-    }
-
-    fun onLinkButtonClicked(view: View) {
-        val browserIntent = Intent(Intent.ACTION_VIEW)
-        browserIntent.data = Uri.parse(previewLink)
-        startActivity(browserIntent)
     }
 }

@@ -1,7 +1,7 @@
 package bonoj.me.athenaeum.details
 
-import bonoj.me.athenaeum.data.BookDetails
-import bonoj.me.athenaeum.data.BooksDataSource
+import bonoj.me.athenaeum.data.model.BookDetails
+import bonoj.me.athenaeum.data.source.BooksDataSource
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver

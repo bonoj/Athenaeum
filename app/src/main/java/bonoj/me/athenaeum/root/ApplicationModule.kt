@@ -1,8 +1,8 @@
 package bonoj.me.athenaeum.root
 
 import android.content.Context
-import bonoj.me.athenaeum.data.BooksDataSource
-import bonoj.me.athenaeum.data.source.remote.BooksRemoteRepository
+import bonoj.me.athenaeum.data.source.BooksDataSource
+import bonoj.me.athenaeum.data.source.BooksRepository
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -10,10 +10,10 @@ import javax.inject.Singleton
 @Module
 class ApplicationModule(private val application: AthenaeumApplication) {
 
-    private val booksRemoteRepository: BooksRemoteRepository
+    private val booksRepository: BooksRepository
 
     init {
-        booksRemoteRepository = BooksRemoteRepository(application)
+        booksRepository = BooksRepository(application)
     }
 
     @Provides
@@ -24,7 +24,7 @@ class ApplicationModule(private val application: AthenaeumApplication) {
 
     @Provides
     @Singleton
-    internal fun provideBooksRemoteRepository(context: Context): BooksDataSource {
-        return booksRemoteRepository
+    fun provideBooksRemoteRepository(context: Context): BooksDataSource {
+        return booksRepository
     }
 }

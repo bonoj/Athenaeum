@@ -8,8 +8,8 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
-import bonoj.me.athenaeum.data.BookDetails;
-import bonoj.me.athenaeum.data.BooksDataSource;
+import bonoj.me.athenaeum.data.model.BookDetails;
+import bonoj.me.athenaeum.data.source.BooksDataSource;
 import bonoj.me.athenaeum.data.model.ImageLinks;
 import io.reactivex.Single;
 import io.reactivex.plugins.RxJavaPlugins;
