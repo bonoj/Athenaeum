@@ -5,10 +5,11 @@ import bonoj.me.athenaeum.BuildConfig
 import bonoj.me.athenaeum.data.model.Book
 import bonoj.me.athenaeum.data.model.BookDetails
 import bonoj.me.athenaeum.data.model.ImageLinks
+import bonoj.me.athenaeum.data.source.local.BookDao
+import bonoj.me.athenaeum.data.source.local.BookDatabase
 import bonoj.me.athenaeum.data.source.remote.BooksApiUtils
 import io.reactivex.Single
 import kotlinx.coroutines.experimental.async
-
 
 class BooksRepository(private val context: Context) : BooksDataSource {
 

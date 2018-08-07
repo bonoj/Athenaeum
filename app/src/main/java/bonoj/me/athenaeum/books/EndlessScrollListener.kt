@@ -4,7 +4,7 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 
 class EndlessScrollListener(
-        val func: () -> Unit,
+        val onThresholdReached: () -> Unit,
         val layoutManager: GridLayoutManager) : RecyclerView.OnScrollListener() {
 
     private var previousTotal = 0
@@ -30,9 +30,8 @@ class EndlessScrollListener(
             }
             if (!loading && (totalItemCount - visibleItemCount)
                     <= (firstVisibleItem + desiredThreshold)) {
-
-                // Desired threshold reached
-                func()
+                
+                onThresholdReached()
                 loading = true;
             }
         }

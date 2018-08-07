@@ -1,4 +1,4 @@
-package bonoj.me.athenaeum.data.source
+package bonoj.me.athenaeum.data.source.local
 
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert

@@ -25,7 +25,7 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View {
     @Inject
     lateinit var booksDataSource: BooksDataSource
 
-    //lateinit var presenter: DetailsPresenter
+//    lateinit var presenter: DetailsPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,7 +56,7 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View {
     override fun onStop() {
         super.onStop()
 
-       // presenter.unsubscribe()
+//        presenter.unsubscribe()
     }
 
     override val id: String
@@ -107,6 +107,5 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View {
         details_empty_tv.setText(R.string.connection_error)
         details_scroll_view.visibility = View.GONE
         details_empty_tv.visibility = View.VISIBLE
-
     }
 }

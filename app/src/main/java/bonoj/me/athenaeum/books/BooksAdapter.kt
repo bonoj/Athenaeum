@@ -66,7 +66,6 @@ class BooksAdapter(private val context: Context,
         Glide.with(context)
                 .load(imageUrl)
                 .apply(requestOptions)
-                //.placeholder(R.drawable.placeholder)
                 .into(holder.listItemIv)
 
         holder.listItemTv.text = title
