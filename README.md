@@ -3,7 +3,6 @@ A book library with clean architecture powered by RxJava, Dagger, Retrofit, and 
 
 Also featuring alternate architecture using Android Architecture Components: ViewModel replaces the presenter with LiveData and Kotlin Coroutines for concurrency. Room Database caches network calls locally.
 
-Architecture diagram:
 View (Activities) <-> Presenter/ViewModel <- Repository <- Database <- API
                                                                           
                                                                           
