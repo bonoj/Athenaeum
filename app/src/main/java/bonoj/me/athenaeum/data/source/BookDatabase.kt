@@ -7,23 +7,25 @@ import android.content.Context
 import bonoj.me.athenaeum.data.model.Book
 
 @Database(entities = arrayOf(Book::class), version = 1)
-abstract class BookRoomDatabase : RoomDatabase() {
+abstract class BookDatabase : RoomDatabase() {
     abstract fun bookDao(): BookDao
 
-    private var INSTANCE: BookRoomDatabase? = null
+    companion object {
+        private var INSTANCE: BookDatabase? = null
 
-    fun getDatabase(context: Context): BookRoomDatabase {
-        if (INSTANCE == null) {
-            synchronized(BookRoomDatabase::class.java) {
-                if (INSTANCE == null) {
+        fun getInstance(context: Context): BookDatabase? {
+            if (INSTANCE == null) {
+                synchronized(BookDatabase::class) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            BookRoomDatabase::class.java, "book_database")
+                            BookDatabase::class.java, "book_database")
                             .build()
-
                 }
             }
+            return INSTANCE
         }
-        return INSTANCE!!
-    }
 
+        fun destroyInstance() {
+            INSTANCE = null
+        }
+    }
 }

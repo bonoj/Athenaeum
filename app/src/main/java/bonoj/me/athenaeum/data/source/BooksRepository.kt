@@ -7,19 +7,50 @@ import bonoj.me.athenaeum.data.model.BookDetails
 import bonoj.me.athenaeum.data.model.ImageLinks
 import bonoj.me.athenaeum.data.source.remote.BooksApiUtils
 import io.reactivex.Single
+import kotlinx.coroutines.experimental.async
+
 
 class BooksRepository(private val context: Context) : BooksDataSource {
 
+    // Local
+    val bookDao: BookDao
+    val localBooks = ArrayList<Book>()
+
+    init {
+        val bookDatabase = BookDatabase.getInstance(context)
+        bookDao = bookDatabase!!.bookDao()
+        async {
+            localBooks.addAll(bookDao.getBooks())
+        }
+    }
+
+    fun insert(book: Book) {
+        async {
+            if (!localBooks.contains(book)) {
+                bookDao.insert(book)
+           }
+        }
+    }
+
+    // Remote
     private val booksApiService = BooksApiUtils.apiService
     private val apiKey = BuildConfig.API_KEY
     private var searchString = "science fiction"
     private val searchStrings = arrayListOf("fantasy", "horror", "history", "science")
     private var startIndex = 0
     private var isEndOfSearch = false
+    private var gotCache = false
 
     override val books: Single<List<Book>>
         get() {
-            return Single.fromCallable { requestBooksFromApi() }
+            return Single.fromCallable {
+
+                if (!gotCache && localBooks.isNotEmpty()) {
+                    gotCache = true
+                    startIndex = localBooks.size
+                    return@fromCallable localBooks
+                }
+                return@fromCallable requestBooksFromApi() }
         }
 
     override fun getBookDetails(id: String): Single<BookDetails> {
@@ -77,6 +108,9 @@ class BooksRepository(private val context: Context) : BooksDataSource {
         }
 
         startIndex += 40
+
+        // Cache locally
+        booksFromApi.forEach { insert(it) }
 
         return booksFromApi
     }

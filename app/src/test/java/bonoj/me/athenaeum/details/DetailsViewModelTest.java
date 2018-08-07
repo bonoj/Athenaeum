@@ -33,7 +33,7 @@ public class DetailsViewModelTest {
     }
 
     @Test
-    public void shouldDeliverBookDetailsToView() {
+    public void shouldGetBookDetails() {
 
         BookDetails bookDetails = new BookDetails(
                 "",
@@ -45,15 +45,5 @@ public class DetailsViewModelTest {
                 "",
                 new ImageLinks("", ""),
                 "");
-
-
-
-
-//        Mockito.when(view.getId()).thenReturn("");
-//        Mockito.when(booksDataSource.getBookDetails("")).thenReturn(Single.just(bookDetails));
-//
-//        presenter.loadDetails();
-//
-//        Mockito.verify(view).displayDetails(bookDetails);
     }
 }

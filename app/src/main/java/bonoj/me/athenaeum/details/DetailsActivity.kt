@@ -2,7 +2,10 @@ package bonoj.me.athenaeum.details
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -33,18 +36,21 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View {
 //        presenter = DetailsPresenter(this, booksDataSource, AndroidSchedulers.mainThread())
 //        presenter.loadDetails()
 
+        // Refactored to use ViewModel with LiveData and Kotlin Coroutines rather than a presenter with RxJava
         val detailsViewModel = ViewModelProviders.of(this).get(DetailsViewModel::class.java)
 
         detailsViewModel.getBookDetails(id).observe(this, Observer { bookDetails ->
             if (bookDetails != null) {
-
                 displayDetails(bookDetails)
-
-                //Log.i("BOOX", bookDetails.toString())
             }
         })
 
-        // TODO Handle network errors.
+        val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
+        val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
+        if (!isConnected) {
+            displayError()
+        }
     }
 
     override fun onStop() {
